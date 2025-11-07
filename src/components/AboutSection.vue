@@ -10,7 +10,7 @@
           class="w-full h-auto max-w-[22rem] object-cover rounded-full shadow-xl shadow-emerald-500/30 ring-4 ring-primary"
         />
 
-        <div class="flex items-center gap-8 text-dark-primary dark:text-light-primary text-2xl transition-none">
+        <div class="pt-2 flex items-center gap-8 text-dark-primary dark:text-light-primary text-2xl transition-none">
           <a 
             href="https://www.linkedin.com/in/your-handle" 
             target="_blank" 

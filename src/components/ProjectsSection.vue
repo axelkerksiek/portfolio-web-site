@@ -23,7 +23,7 @@ const projects = [
     description:
       'Trip planning companion app with smart itinerary building, budget tracking, and offline sync.',
     tech: ['Vite', 'TypeScript', 'Firebase'],
-    image: '/images/sample_web_app.jpeg',
+    image: '/images/development_portfolio.png',
     github: 'https://github.com/yourname/voyager-travel',
     demo: 'https://voyager.yourdomain.com'
   }
