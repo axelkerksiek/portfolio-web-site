@@ -19,7 +19,7 @@
           v-for="item in navItems"
           :key="item.name"
           :href="item.href"
-          class="text-dark-primary dark:text-light-primary hover:text-primary transition-colors font-light"
+          class="text-dark-primary dark:text-light-primary hover:text-primary transition-colors"
         >
           {{ item.name }}
         </a>
@@ -68,7 +68,7 @@
       <div class="h-px bg-light-secondary dark:bg-dark-secondary"></div>
       
       <!-- Navigation Links (Centered at top) -->
-      <div class="flex flex-col px-30 pt-6 space-y-4">
+      <div class="flex flex-col px-8 pt-6 space-y-4">
         <a
           v-for="item in navItems"
           :key="item.name"
@@ -107,8 +107,7 @@ onMounted(() => {
 
 const navItems = [
   { name: 'About', href: '#about' },
-  { name: 'Projects', href: '#projects' },
-  { name: 'Contact', href: '#contact' }
+  { name: 'Projects', href: '#projects' }
 ]
 
 const isDark = ref(false)
