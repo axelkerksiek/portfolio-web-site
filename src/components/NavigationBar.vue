@@ -19,13 +19,36 @@
           v-for="item in navItems"
           :key="item.name"
           :href="item.href"
-          class="text-dark-primary dark:text-light-primary hover:text-primary transition-colors"
+          class="text-dark-primary dark:text-light-primary hover:text-primary transition-colors text-base font-semibold"
         >
           {{ item.name }}
         </a>
 
         <!-- Vertical Divider -->
-        <div class="h-6 w-0.25 bg-dark-primary dark:bg-light-primary"></div>
+        <div class="h-4 w-0.25 bg-dark-primary dark:bg-light-primary"></div>
+
+        <!-- External Links -->
+        <div class="flex items-center gap-3 text-dark-primary dark:text-light-primary text-xl transition-none">
+          <a 
+            href="https://www.linkedin.com/in/axelkerksiek" 
+            target="_blank" 
+            rel="noopener" 
+            class="hover:text-primary" 
+            aria-label="LinkedIn"
+            title="View my LinkedIn profile"
+          >
+            <FontAwesomeIcon :icon="['fab', 'square-linkedin']" />
+          </a>
+          <a 
+            href="https://github.com/axelkerksiek" 
+            target="_blank" rel="noopener" 
+            class="hover:text-primary" 
+            aria-label="GitHub" 
+            title="View my GitHub profile"
+          >
+            <FontAwesomeIcon :icon="['fab', 'square-github']" />
+          </a>
+        </div>
 
         <!-- Dark Mode Toggle -->
         <div class="flex items-center space-x-2">
@@ -74,12 +97,12 @@
           :key="item.name"
           :href="item.href"
           @click="closeMobileMenu"
-          class="text-dark-primary dark:text-light-primary hover:text-primary transition-colors font-light text-lg"
+          class="text-dark-primary dark:text-light-primary hover:text-primary transition-colors font-semibold text-base"
         >
           {{ item.name }}
         </a>
         <div class="flex justify-between">
-          <span class="text-dark-primary dark:text-light-primary font-light text-lg">Appearance</span>
+          <span class="text-dark-primary dark:text-light-primary font-semibold text-base">Appearance</span>
           <ToggleButton
             :is-active="isDark"
             :title="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
