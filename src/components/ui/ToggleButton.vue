@@ -5,12 +5,14 @@
     class="
       relative 
       inline-flex 
-      h-6 
-      w-11 
+      h-6
+      w-10
       items-center 
       rounded-full 
       transition-colors 
       cursor-pointer
+      border-1 border-text-muted
+      hover:border-1 hover:border-text
     "
     :class="isActive ? activeClass : inactiveClass"
     role="switch"
@@ -21,16 +23,15 @@
       class="
         relative
         inline-flex 
-        h-4 
-        w-4 
+        h-4
+        w-4
         transform 
         items-center 
         justify-center 
-        rounded-full 
-        shadow-sm
+        rounded-full
       "
       :class="[
-        isActive ? 'translate-x-6' : 'translate-x-1',
+        isActive ? 'translate-x-5' : 'translate-x-[0.25rem]',
         thumbClass
       ]"
     >
@@ -55,7 +56,7 @@ interface Emits {
 withDefaults(defineProps<Props>(), {
   activeClass: 'bg-primary',
   inactiveClass: 'bg-primary',
-  thumbClass: 'bg-white dark:bg-dark-primary'
+  thumbClass: 'bg-bg'
 })
 
 defineEmits<Emits>()

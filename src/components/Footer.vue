@@ -1,7 +1,13 @@
 <template>
-  <footer class="bg-light-primary dark:bg-dark-primary pb-4">
-    <div class="text-sm text-dark-primary text-center dark:text-light-primary/80 font-light italic">
-      © 2025 All rights reserved
-    </div>
-  </footer>
+  <footer class="bg-bg-dark pb-4">
+      <Container>
+        <div class="text-sm text-text-muted text-center font-light italic">
+          © 2025 All rights reserved
+        </div>
+      </Container>
+    </footer>
 </template>
+
+<script setup lang="ts">
+  import Container from './Container.vue'
+</script>
