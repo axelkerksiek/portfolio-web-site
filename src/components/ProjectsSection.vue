@@ -62,15 +62,15 @@
           <article
             v-for="project in projects"
             :key="project.title"
-            class="w-full flex flex-col lg:flex-row gap-8 rounded-2xl bg-bg p-6 border border-highlight dark:border-border-muted shadow-md"
+            class="h-auto lg:h-[464px] w-full flex flex-col lg:flex-row gap-8 rounded-2xl bg-bg p-6 border border-highlight dark:border-border-muted shadow-md"
           >
-            <div class="lg:w-1/2 w-full h-64 lg:h-auto lg:max-h-96 overflow-hidden">
-              <img
-                :src="project.image"
-                :alt="`${project.title} preview`"
-                class="w-full h-full max-h-96 object-cover rounded-2xl"
-              />
-            </div>
+          <div class="lg:w-1/2 w-full h-full flex bg-bg items-center justify-center">
+            <img
+              :src="project.image"
+              :alt="`${project.title} preview`"
+              class="max-w-full max-h-full object-contain rounded-2xl"
+            />
+          </div>
 
             <div class="lg:w-1/2 w-full flex flex-col">
               <div class="flex-1 flex flex-col gap-4">
@@ -129,26 +129,31 @@
                 </div>
               </div>
 
-              <div class="mt-6 flex flex-wrap gap-4 text-sm font-semibold">
-                <a
-                  v-if="project.github_url"
-                  :href="project.github_url"
-                  target="_blank"
-                  rel="noopener"
-                  class="inline-flex items-center gap-2 text-primary hover:underline"
-                >
-                  View Code
-                  <span aria-hidden="true">↗</span>
-                </a>
+              <div class="mt-6 flex flex-col sm:flex-row gap-3">
                 <a
                   v-if="project.project_url"
                   :href="project.project_url"
                   target="_blank"
                   rel="noopener"
-                  class="inline-flex items-center gap-2 text-primary hover:underline"
+                  class="flex-1 px-6 py-3 font-semibold rounded-lg bg-primary text-text-white hover:bg-primary/90 shadow-md hover:shadow-lg inline-flex items-center justify-center gap-2"
                 >
-                  Visit Project
-                  <span aria-hidden="true">↗</span>
+                  View Project
+                  <FontAwesomeIcon :icon="['fas', 'arrow-up-right-from-square']" class="text-sm" />
+                </a>
+                <a
+                  v-if="project.github_url"
+                  :href="project.github_url"
+                  target="_blank"
+                  rel="noopener"
+                  :class="[
+                    'flex-1 px-6 py-3 font-semibold rounded-lg inline-flex items-center justify-center gap-2',
+                    project.project_url 
+                      ? 'bg-bg-primary border-2 border-primary text-primary hover:bg-primary/10' 
+                      : 'bg-primary text-text-white hover:bg-primary/90 shadow-md hover:shadow-lg'
+                  ]"
+                >
+                  View Code
+                  <FontAwesomeIcon :icon="['fas', 'arrow-up-right-from-square']" class="text-sm" />
                 </a>
               </div>
             </div>

@@ -9,6 +9,7 @@
   --color-bg-light: var(--color-bg-light);
   --color-text: var(--color-text);
   --color-text-muted: var(--color-text-muted);
+  --color-text-white: var(--color-text-white);
   --color-primary: var(--color-primary);
   --color-primary-light: var(--color-primary-light);
   --color-highlight: var(--color-highlight);
@@ -22,6 +23,7 @@
   --color-bg-light: oklch(1 0 159);
   --color-text: oklch(0.15 0 159);
   --color-text-muted: oklch(0.4 0 159);
+  --color-text-white: oklch(0.96 0 144);
   --color-primary: oklch(0.696 0.17 162.48);
   --color-primary-light: oklch(1 0.17 162.48);
   --color-highlight: oklch(1 0 159);
