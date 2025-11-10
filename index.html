@@ -3,25 +3,43 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="/images/axel_logo_with_background.png">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>Axel's Portfolio</title>
     <script>
+      // Apply saved color palette theme
+      const savedTheme = localStorage.getItem('theme-palette') || 'default'
+      if (savedTheme !== 'default') {
+        const themes = {
+          sunset: 'oklch(0.7 0.18 45)',
+          ocean: 'oklch(0.65 0.15 210)',
+          purple: 'oklch(0.67 0.2 290)',
+          rose: 'oklch(0.66 0.19 10)',
+        }
+        if (themes[savedTheme]) {
+          document.documentElement.style.setProperty(
+            '--color-primary',
+            themes[savedTheme]
+          )
+        }
+      }
+
+      // Apply dark/light theme
       const applyStoredTheme = () => {
         document.documentElement.classList.toggle(
           'dark',
           localStorage.theme === 'dark' ||
             (!('theme' in localStorage) &&
-              window.matchMedia('(prefers-color-scheme: dark)').matches),
-        );
-      };
-    
-      applyStoredTheme();
-    
+              window.matchMedia('(prefers-color-scheme: dark)').matches)
+        )
+      }
+
+      applyStoredTheme()
+
       window
         .matchMedia('(prefers-color-scheme: dark)')
         .addEventListener('change', () => {
-          if (!('theme' in localStorage)) applyStoredTheme();
-        });
+          if (!('theme' in localStorage)) applyStoredTheme()
+        })
     </script>
   </head>
   <body>
