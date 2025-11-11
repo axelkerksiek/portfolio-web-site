@@ -59,25 +59,27 @@
             <!-- Vertical Divider -->
             <div class="bg-text h-4 w-0.25"></div>
 
-            <!-- Color Palette Button -->
-            <div
-              v-if="showPaletteMenu"
-              class="ml-2 flex origin-right items-center gap-2"
-            >
-              <!-- Button uses theme color classes directly -->
-              <button
-                v-for="theme in Object.keys(themeColors)"
-                :key="theme"
-                @click="selectPalette(theme)"
-                :style="{ backgroundColor: themeColors[theme] }"
-                :class="[
-                  selectedTheme === theme
-                    ? 'border-primary ring-primary ring-offset-bg-dark ring-1 ring-offset-2'
-                    : 'border-border',
-                ]"
-                class="h-5 w-5 cursor-pointer overflow-hidden rounded-sm border-1 hover:scale-110"
-              ></button>
-            </div>
+            <!-- Color Palette Menu with slide-in animation -->
+            <Transition name="slide-fade">
+              <div
+                v-if="showPaletteMenu"
+                class="ml-2 flex origin-right items-center gap-2"
+              >
+                <!-- Button uses theme color classes directly -->
+                <button
+                  v-for="theme in Object.keys(themeColors)"
+                  :key="theme"
+                  @click="selectPalette(theme)"
+                  :style="{ backgroundColor: themeColors[theme] }"
+                  :class="[
+                    selectedTheme === theme
+                      ? 'border-primary ring-primary ring-offset-bg-dark ring-1 ring-offset-2'
+                      : 'border-border',
+                  ]"
+                  class="h-5 w-5 cursor-pointer overflow-hidden rounded-sm border-1 hover:scale-110"
+                ></button>
+              </div>
+            </Transition>
 
             <!-- Color Palette Button -->
             <button
@@ -244,3 +246,40 @@ watch(isMobileMenuOpen, (isOpen) => {
   }
 })
 </script>
+
+<style scoped>
+/* Slide-fade transition for palette menu */
+.slide-fade-enter-active {
+  transition: all 0.3s ease-out;
+  overflow: hidden;
+  padding: 4px; /* Space for rings to show */
+  margin: -4px; /* Compensate for padding */
+}
+
+.slide-fade-leave-active {
+  transition: all 0.2s ease-in;
+  overflow: hidden;
+  padding: 4px; /* Space for rings to show */
+  margin: -4px; /* Compensate for padding */
+}
+
+.slide-fade-enter-from {
+  transform: translateX(10px);
+  opacity: 0;
+  max-width: 0;
+  margin-left: -4px; /* Adjust for padding compensation */
+}
+
+.slide-fade-leave-to {
+  transform: translateX(10px);
+  opacity: 0;
+  max-width: 0;
+  margin-left: -4px; /* Adjust for padding compensation */
+}
+
+.slide-fade-enter-to,
+.slide-fade-leave-from {
+  max-width: 200px;
+  margin-left: calc(0.5rem - 4px); /* ml-2 minus padding compensation */
+}
+</style>

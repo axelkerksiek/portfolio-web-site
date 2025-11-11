@@ -14,7 +14,7 @@ type Project = {
 
 const projects: Project[] = [
   {
-    title: 'ToDo Web App',
+    title: '📋 ToDo Web App',
     description:
       'A simple ToDo web app to manage your tasks with a twist: it can be a little sarcastic at times.',
     notable_features: ['Customizable level of sarcasm', 'Fun reminders'],
@@ -31,7 +31,7 @@ const projects: Project[] = [
     project_url: 'https://todo-app.axelkerksiek.com',
   },
   {
-    title: '2D Arcade Game',
+    title: '🕹️ 2D Arcade Game',
     description:
       'A 2D space shooter game inspired by Stargate: SG-1. Fight your way through waves of enemies unlocking upgrades as you progress. ',
     notable_features: [
@@ -45,7 +45,7 @@ const projects: Project[] = [
     project_url: 'https://stargate-game.axelkerksiek.com',
   },
   {
-    title: 'Personal Portfolio',
+    title: '🧑‍💻 Personal Portfolio',
     description:
       'A place for others to see some of the coding projects I have been working on.',
     notable_features: [
@@ -90,7 +90,9 @@ const projects: Project[] = [
 
             <div class="flex w-full flex-col lg:w-1/2">
               <div class="flex flex-1 flex-col gap-4">
-                <h3 class="text-text mt-0 text-2xl font-semibold">
+                <h3
+                  class="text-text mt-0 text-center text-2xl font-semibold md:text-left"
+                >
                   {{ project.title }}
                 </h3>
 
