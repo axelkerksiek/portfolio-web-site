@@ -23,9 +23,9 @@
             <span class="font-semibold italic">Vue</span> and
             <span class="font-semibold italic">Rails</span>. I work with the
             entire product lifecycle—from design and engineering through testing
-            and deployment. Below are a few personal projects that I have or am
-            currently working on. Feel free to explore the live sites or dive
-            into my code on GitHub.
+            and deployment. Below are a few personal projects that I have worked
+            on. Feel free to explore the live sites or dive into my code on
+            GitHub.
           </p>
           <!-- <div
             class="mb-1 rounded-lg bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 p-[1.5px]"

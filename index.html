@@ -3,17 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="/images/theme_00/axel_logo_green.png"
+    />
     <title>Axel's Portfolio</title>
     <script>
       // Apply saved color palette theme
       const savedTheme = localStorage.getItem('theme-palette') || 'default'
       if (savedTheme !== 'default') {
         const themes = {
-          sunset: 'oklch(0.7 0.18 45)',
-          ocean: 'oklch(0.65 0.15 210)',
+          orange: 'oklch(0.7 0.18 45)',
+          blue: 'oklch(0.65 0.15 210)',
           purple: 'oklch(0.67 0.2 290)',
-          rose: 'oklch(0.66 0.19 10)',
+          red: 'oklch(0.66 0.19 10)',
         }
         if (themes[savedTheme]) {
           document.documentElement.style.setProperty(
