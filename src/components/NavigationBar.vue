@@ -12,7 +12,7 @@
           @click="closeMobileMenu"
         >
           <img
-            src="/images/axel_logo.png"
+            src="/images/logos/axel_logo_250x250_optimized.png"
             alt="Logo"
             class="bg-primary h-8 w-8 rounded-md object-cover"
           />
@@ -41,7 +41,7 @@
               rel="noopener"
               class="text-text hover:text-primary"
               aria-label="LinkedIn"
-              title="View my LinkedIn profile"
+              title="View LinkedIn profile"
             >
               <FontAwesomeIcon :icon="['fab', 'square-linkedin']" />
             </a>
@@ -51,7 +51,7 @@
               rel="noopener"
               class="text-text hover:text-primary"
               aria-label="GitHub"
-              title="View my GitHub profile"
+              title="View GitHub profile"
             >
               <FontAwesomeIcon :icon="['fab', 'square-github']" />
             </a>
@@ -85,8 +85,8 @@
             <button
               @click="togglePaletteMenu"
               class="text-text hover:text-primary cursor-pointer"
-              aria-label="Choose theme"
-              title="Choose theme"
+              aria-label="Choose theme color"
+              title="Choose theme color"
             >
               <FontAwesomeIcon :icon="['fas', 'palette']" />
             </button>
@@ -214,11 +214,10 @@
 import { ref, onMounted, watch, onUnmounted } from 'vue'
 import Container from './BaseContainer.vue'
 import ToggleButton from './ui/ToggleButton.vue'
-import { onClickOutside } from '@vueuse/core'
 
 onMounted(() => {
   applyStoredTheme()
-  const storedTheme = localStorage.getItem('theme-palette') || 'default'
+  const storedTheme = localStorage.getItem('theme-palette') || 'green'
   selectedTheme.value = storedTheme
   updateFavicon(storedTheme)
   window.addEventListener('resize', handleResize)
@@ -243,13 +242,13 @@ const showPaletteMenu = ref(false)
 const navRef = ref<HTMLElement | null>(null)
 
 const themeColors: Record<string, string> = {
-  default: 'oklch(0.696 0.17 162.48)', //make sure this is the same value as --color-primary in :root
+  green: 'oklch(0.696 0.17 162.48)', //make sure this is the same value as --color-primary in :root
   orange: 'oklch(0.7 0.18 45)',
   blue: 'oklch(0.6547 0.1749 248.01)',
   purple: 'oklch(0.67 0.2 290)',
   red: 'oklch(0.66 0.19 10)',
 }
-const selectedTheme = ref('default')
+const selectedTheme = ref('green')
 const selectPalette = (theme: string) => {
   selectedTheme.value = theme
   document.documentElement.style.setProperty(
@@ -257,7 +256,6 @@ const selectPalette = (theme: string) => {
     themeColors[theme]
   )
   localStorage.setItem('theme-palette', theme)
-  showPaletteMenu.value = false
 }
 
 watch(selectedTheme, (newTheme) => {
@@ -269,13 +267,13 @@ const updateFavicon = (theme: string) => {
   if (favicon) {
     // Map theme names to their corresponding logo files
     const faviconMap: Record<string, string> = {
-      default: '/images/theme_00/axel_logo_green.png', // or your default logo
-      orange: '/images/theme_01/axel_logo_orange.png',
-      blue: '/images/theme_02/axel_logo_blue.png',
-      purple: '/images/theme_03/axel_logo_purple.png',
-      red: '/images/theme_04/axel_logo_red.png',
+      green: '/images/logos/axel_logo_green_32x32_optimized.png',
+      orange: '/images/logos/axel_logo_orange_32x32_optimized.png',
+      blue: '/images/logos/axel_logo_blue_32x32_optimized.png',
+      purple: '/images/logos/axel_logo_purple_32x32_optimized.png',
+      red: '/images/logos/axel_logo_red_32x32_optimized.png',
     }
-    favicon.href = faviconMap[theme] || faviconMap.default
+    favicon.href = faviconMap[theme] || faviconMap.green
   }
 }
 
@@ -317,11 +315,6 @@ const toggleDarkMode = () => {
   }
   applyStoredTheme()
 }
-
-// Close palette menu when clicking outside
-onClickOutside(navRef, () => {
-  showPaletteMenu.value = false
-})
 
 // Watch for mobile menu changes to prevent scrolling
 watch(isMobileMenuOpen, (isOpen) => {

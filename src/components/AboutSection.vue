@@ -5,7 +5,7 @@
         <!-- Image div - centered -->
         <div class="flex w-full items-center justify-center lg:w-1/3">
           <img
-            src="/images/axel_portrait.jpg"
+            src="/images/portraits/axel_portrait_750x750_optimized.jpg"
             alt="Portrait of Axel"
             class="ring-primary h-auto w-full max-w-[16rem] rounded-full object-cover ring-4"
           />

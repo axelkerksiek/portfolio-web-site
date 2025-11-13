@@ -16,7 +16,7 @@ const projects: Project[] = [
   {
     title: '📋 ToDo Web App',
     description:
-      'A simple ToDo web app to manage your tasks with a twist: it can be a little sarcastic at times.',
+      'A simple ToDo web app to manage your tasks with a twist: choose your desired level of sarcasic motivation.',
     notable_features: ['Customizable level of sarcasm', 'Fun reminders'],
     tech: [
       'Ruby + Rails',
@@ -26,9 +26,9 @@ const projects: Project[] = [
       'SPA',
       'AWS',
     ],
-    image: '/images/under_construction_16_9.png',
-    github_url: 'https://github.com/axelkerksiek/todo-app',
-    project_url: 'https://todo-app.axelkerksiek.com',
+    image: '/images/projects/under_construction_3_2_optimized.png',
+    github_url: '',
+    project_url: '',
   },
   {
     title: '🕹️ 2D Arcade Game',
@@ -40,9 +40,9 @@ const projects: Project[] = [
       'Pixel art and music',
     ],
     tech: ['PICO-8', 'Lua'],
-    image: '/images/under_construction_16_9.png',
-    github_url: 'https://github.com/axelkerksiek/stargate-game',
-    project_url: 'https://stargate-game.axelkerksiek.com',
+    image: '/images/projects/under_construction_3_2_optimized.png',
+    github_url: '',
+    project_url: '',
   },
   {
     title: '🧑‍💻 Personal Portfolio',
@@ -54,8 +54,9 @@ const projects: Project[] = [
       'Responsive design',
     ],
     tech: ['Vite + Vue 3', 'Tailwind CSS', 'SSG', 'AWS'],
-    image: '/images/axel_portfolio_light_16_9.png',
+    image: '/images/projects/axel_portfolio_1500x979_light_optimized.png',
     github_url: 'https://github.com/axelkerksiek/portfolio-web-site',
+    project_url: '',
   },
 ]
 </script>
@@ -84,6 +85,7 @@ const projects: Project[] = [
               <img
                 :src="project.image"
                 :alt="`${project.title} preview`"
+                loading="lazy"
                 class="h-full w-full object-cover object-top"
               />
             </div>
@@ -158,39 +160,49 @@ const projects: Project[] = [
                   </ul>
                 </div>
               </div>
-
               <div class="mt-6 flex flex-col gap-3 sm:flex-row">
-                <a
-                  v-if="project.project_url"
-                  :href="project.project_url"
-                  target="_blank"
-                  rel="noopener"
-                  class="bg-primary text-text-white inline-flex flex-1 items-center justify-center gap-2 rounded-lg px-6 py-3 font-semibold shadow-md hover:scale-102 hover:shadow-lg"
+                <!-- Show "Coming Soon" if both URLs are empty -->
+                <div
+                  v-if="!project.project_url && !project.github_url"
+                  class="bg-bg-primary border-primary text-primary inline-flex w-full items-center justify-center gap-2 rounded-lg border-2 px-6 py-3 font-semibold"
                 >
-                  View Project
-                  <FontAwesomeIcon
-                    :icon="['fas', 'arrow-up-right-from-square']"
-                    class="text-sm"
-                  />
-                </a>
-                <a
-                  v-if="project.github_url"
-                  :href="project.github_url"
-                  target="_blank"
-                  rel="noopener"
-                  :class="[
-                    'inline-flex flex-1 items-center justify-center gap-2 rounded-lg px-6 py-3 font-semibold hover:scale-102',
-                    project.project_url
-                      ? 'bg-bg-primary border-primary hover:bg-primary/10 text-primary border-2'
-                      : 'bg-primary text-text-white shadow-md hover:shadow-lg',
-                  ]"
-                >
-                  View Code
-                  <FontAwesomeIcon
-                    :icon="['fas', 'arrow-up-right-from-square']"
-                    class="text-sm"
-                  />
-                </a>
+                  Coming soon!
+                </div>
+
+                <!-- Show buttons if at least one URL exists -->
+                <template v-else>
+                  <a
+                    v-if="project.project_url"
+                    :href="project.project_url"
+                    target="_blank"
+                    rel="noopener"
+                    class="bg-primary text-text-white inline-flex flex-1 items-center justify-center gap-2 rounded-lg px-6 py-3 font-semibold shadow-md hover:scale-102 hover:shadow-lg"
+                  >
+                    View Project
+                    <FontAwesomeIcon
+                      :icon="['fas', 'arrow-up-right-from-square']"
+                      class="text-sm"
+                    />
+                  </a>
+                  <a
+                    v-if="project.github_url"
+                    :href="project.github_url"
+                    target="_blank"
+                    rel="noopener"
+                    :class="[
+                      'inline-flex flex-1 items-center justify-center gap-2 rounded-lg px-6 py-3 font-semibold hover:scale-102',
+                      project.project_url
+                        ? 'bg-bg-primary border-primary hover:bg-primary/10 text-primary border-2'
+                        : 'bg-primary text-text-white shadow-md hover:shadow-lg',
+                    ]"
+                  >
+                    View Code
+                    <FontAwesomeIcon
+                      :icon="['fas', 'arrow-up-right-from-square']"
+                      class="text-sm"
+                    />
+                  </a>
+                </template>
               </div>
             </div>
           </article>

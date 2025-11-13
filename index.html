@@ -6,14 +6,15 @@
     <link
       rel="icon"
       type="image/svg+xml"
-      href="/images/theme_00/axel_logo_green.png"
+      href="/images/logos/axel_logo_green_32x32_optimized.png"
     />
     <title>Axel's Portfolio</title>
     <script>
       // Apply saved color palette theme
-      const savedTheme = localStorage.getItem('theme-palette') || 'default'
-      if (savedTheme !== 'default') {
+      const savedTheme = localStorage.getItem('theme-palette') || 'green'
+      if (savedTheme !== 'green') {
         const themes = {
+          green: 'oklch(0.696 0.17 162.48)',
           orange: 'oklch(0.7 0.18 45)',
           blue: 'oklch(0.65 0.15 210)',
           purple: 'oklch(0.67 0.2 290)',
