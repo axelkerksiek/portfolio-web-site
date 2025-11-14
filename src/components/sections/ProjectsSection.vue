@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Container from './BaseContainer.vue'
+import Container from '@/components/layout/AppContainer.vue'
 
 type ProjectFeature = string | { title: string; description: string }
 type Project = {
@@ -18,14 +18,7 @@ const projects: Project[] = [
     description:
       'A simple ToDo web app to manage your tasks with a twist: choose your desired level of sarcasic motivation.',
     notable_features: ['Customizable level of sarcasm', 'Fun reminders'],
-    tech: [
-      'Ruby + Rails',
-      'PostgreSQL',
-      'Vite + Vue 3',
-      'Tailwind CSS',
-      'SPA',
-      'AWS',
-    ],
+    tech: ['Ruby + Rails', 'PostgreSQL', 'Vite + Vue 3', 'Tailwind CSS', 'SPA', 'AWS'],
     image: '/images/projects/under_construction_3_2_optimized.png',
     github_url: '',
     project_url: '',
@@ -34,11 +27,7 @@ const projects: Project[] = [
     title: '🕹️ 2D Arcade Game',
     description:
       'A 2D space shooter game inspired by Stargate: SG-1. Fight your way through waves of enemies unlocking upgrades as you progress. ',
-    notable_features: [
-      'Mulitple levels',
-      'RPG mechanics',
-      'Pixel art and music',
-    ],
+    notable_features: ['Mulitple levels', 'RPG mechanics', 'Pixel art and music'],
     tech: ['PICO-8', 'Lua'],
     image: '/images/projects/under_construction_3_2_optimized.png',
     github_url: '',
@@ -46,13 +35,8 @@ const projects: Project[] = [
   },
   {
     title: '🧑‍💻 Personal Portfolio',
-    description:
-      'A place for others to see some of the coding projects I have been working on.',
-    notable_features: [
-      'Light/Dark mode',
-      'Customizable styling',
-      'Responsive design',
-    ],
+    description: 'A place for others to see some of the coding projects I have been working on.',
+    notable_features: ['Light/Dark mode', 'Customizable styling', 'Responsive design'],
     tech: ['Vite + Vue 3', 'Tailwind CSS', 'SSG', 'AWS'],
     image: '/images/projects/axel_portfolio_1500x979_light_optimized.png',
     github_url: 'https://github.com/axelkerksiek/portfolio-web-site',
@@ -62,15 +46,11 @@ const projects: Project[] = [
 </script>
 
 <template>
-  <section id="projects" class="bg-bg-dark scroll-mt-13 pt-10 pb-4">
+  <section id="projects" class="bg-bg-dark scroll-mt-22 pb-4 lg:scroll-mt-13 lg:pt-10">
     <Container>
       <div class="flex flex-col gap-8">
-        <div
-          class="bg-primary text-text-muted dark:text-text w-full rounded py-1 text-center"
-        >
-          <span class="block text-sm tracking-[0.55em] uppercase">
-            Personal Projects
-          </span>
+        <div class="bg-primary text-text-muted dark:text-text w-full rounded py-1 text-center">
+          <span class="block text-sm tracking-[0.55em] uppercase"> Personal Projects </span>
         </div>
 
         <div class="flex flex-col gap-8">
@@ -92,9 +72,7 @@ const projects: Project[] = [
 
             <div class="flex w-full flex-col lg:w-1/2">
               <div class="flex flex-1 flex-col gap-4">
-                <h3
-                  class="text-text mt-0 text-center text-2xl font-semibold md:text-left"
-                >
+                <h3 class="text-text mt-0 text-center text-2xl font-semibold md:text-left">
                   {{ project.title }}
                 </h3>
 
@@ -103,33 +81,23 @@ const projects: Project[] = [
                 </p>
 
                 <div
-                  v-if="
-                    project.notable_features && project.notable_features.length
-                  "
+                  v-if="project.notable_features && project.notable_features.length"
                   class="flex flex-col gap-3"
                 >
-                  <h4
-                    class="text-text-muted text-sm font-semibold tracking-[0.3em] uppercase"
-                  >
+                  <h4 class="text-text-muted text-sm font-semibold tracking-[0.3em] uppercase">
                     Notable Features
                   </h4>
 
-                  <ul
-                    class="text-text-muted list-inside list-disc space-y-1 pl-3"
-                  >
+                  <ul class="text-text-muted list-inside list-disc space-y-1 pl-3">
                     <li
                       v-for="feature in project.notable_features"
-                      :key="
-                        typeof feature === 'string' ? feature : feature.title
-                      "
+                      :key="typeof feature === 'string' ? feature : feature.title"
                     >
                       <template v-if="typeof feature === 'string'">
                         {{ feature }}
                       </template>
                       <template v-else>
-                        <span class="text-text font-semibold">
-                          {{ feature.title }}:
-                        </span>
+                        <span class="text-text font-semibold"> {{ feature.title }}: </span>
                         <span class="ml-1">
                           {{ feature.description }}
                         </span>
@@ -138,18 +106,11 @@ const projects: Project[] = [
                   </ul>
                 </div>
 
-                <div
-                  v-if="project.tech && project.tech.length"
-                  class="flex flex-col gap-2"
-                >
-                  <h4
-                    class="text-text-muted py-2 text-sm font-semibold tracking-[0.3em] uppercase"
-                  >
+                <div v-if="project.tech && project.tech.length" class="flex flex-col gap-2">
+                  <h4 class="text-text-muted py-2 text-sm font-semibold tracking-[0.3em] uppercase">
                     Tech Stack
                   </h4>
-                  <ul
-                    class="text-primary flex flex-wrap gap-2 text-sm font-semibold"
-                  >
+                  <ul class="text-primary flex flex-wrap gap-2 text-sm font-semibold">
                     <li
                       v-for="item in project.tech"
                       :key="item"

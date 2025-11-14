@@ -11,5 +11,5 @@
 </template>
 
 <script setup lang="ts">
-import Container from './BaseContainer.vue'
+import Container from '@/components/layout/AppContainer.vue'
 </script>

@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import NavigationBar from './components/NavigationBar.vue'
-import AboutSection from './components/AboutSection.vue'
-import ProjectsSection from './components/ProjectsSection.vue'
-import Footer from './components/AppFooter.vue'
+import AppNavigation from '@/components/layout/AppNavigation.vue'
+import AboutSection from '@/components/sections/AboutSection.vue'
+import ProjectsSection from '@/components/sections/ProjectsSection.vue'
+import Footer from '@/components/layout/AppFooter.vue'
 </script>
 
 <template>
   <div>
-    <NavigationBar />
+    <AppNavigation />
     <AboutSection />
     <ProjectsSection />
     <Footer />

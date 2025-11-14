@@ -16,7 +16,7 @@
             alt="Logo"
             class="bg-primary h-8 w-8 rounded-md object-cover"
           />
-          <div class="text-text text-lg font-bold">Axel's Portfolio</div>
+          <div class="text-text text-2xl font-bold md:text-lg">Axel's Portfolio</div>
         </a>
 
         <!-- Desktop Navigation -->
@@ -61,15 +61,11 @@
 
             <!-- Color Palette Menu with slide-in animation -->
             <Transition name="slide-fade">
-              <div
-                v-if="showPaletteMenu"
-                class="ml-2 flex origin-right items-center gap-2"
-              >
+              <div v-if="showPaletteMenu" class="ml-2 flex origin-right items-center gap-2">
                 <!-- Button uses theme color classes directly -->
                 <button
                   v-for="theme in Object.keys(themeColors)"
                   :key="theme"
-                  @click="selectPalette(theme)"
                   :style="{ backgroundColor: themeColors[theme] }"
                   :class="[
                     selectedTheme === theme
@@ -77,21 +73,22 @@
                       : 'border-border',
                   ]"
                   class="h-5 w-5 cursor-pointer overflow-hidden rounded-sm border-1 hover:scale-110"
+                  @click="selectPalette(theme)"
                 ></button>
               </div>
             </Transition>
 
             <!-- Color Palette Button -->
             <button
-              @click="togglePaletteMenu"
               class="text-text hover:text-primary cursor-pointer"
               aria-label="Choose theme color"
               title="Choose theme color"
+              @click="togglePaletteMenu"
             >
               <FontAwesomeIcon :icon="['fas', 'palette']" />
             </button>
 
-            <ToggleButton
+            <BaseToggleButton
               :is-active="isDark"
               :title="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
               @toggle="toggleDarkMode"
@@ -100,21 +97,19 @@
                 :icon="isDark ? ['fas', 'moon'] : ['fas', 'sun']"
                 class="fa-3xs text-text text-[0.5rem]"
               />
-            </ToggleButton>
+            </BaseToggleButton>
           </div>
         </div>
 
         <!-- Mobile Menu Button -->
         <div class="md:hidden">
           <button
-            @click="toggleMobileMenu"
-            class="text-text hover:text-primary"
+            class="text-text hover:text-primary text-2xl"
             :aria-expanded="isMobileMenuOpen"
             aria-label="Toggle mobile menu"
+            @click="toggleMobileMenu"
           >
-            <FontAwesomeIcon
-              :icon="isMobileMenuOpen ? ['fas', 'times'] : ['fas', 'bars']"
-            />
+            <FontAwesomeIcon :icon="isMobileMenuOpen ? ['fas', 'times'] : ['fas', 'bars']" />
           </button>
         </div>
       </div>
@@ -131,8 +126,8 @@
             v-for="item in navItems"
             :key="item.name"
             :href="item.href"
+            class="text-text hover:text-primary border-border-muted border-b pb-3 text-center text-xl font-semibold"
             @click="closeMobileMenu"
-            class="text-text hover:text-primary border-border-muted border-b pb-3 text-sm font-semibold"
           >
             {{ item.name }}
           </a>
@@ -140,45 +135,52 @@
 
         <!-- Appearance Section (Now after links) -->
         <div class="bg-bg mx-16 flex flex-col space-y-6 rounded-lg px-4 py-4">
-          <!-- Dark/Light Mode Toggle -->
+          <!-- Color Theme Squares - Centered -->
           <div class="flex items-center justify-between">
-            <span class="text-text-muted text-sm font-semibold"
-              >Appearance</span
-            >
-            <div class="origin-right scale-85">
-              <ToggleButton
-                :is-active="isDark"
-                :title="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
-                @toggle="toggleDarkMode"
-              >
-                <FontAwesomeIcon
-                  :icon="isDark ? ['fas', 'moon'] : ['fas', 'sun']"
-                  class="fa-2xs text-text"
-                />
-              </ToggleButton>
-            </div>
+            <button
+              v-for="theme in Object.keys(themeColors)"
+              :key="theme"
+              :style="{ backgroundColor: themeColors[theme] }"
+              :class="[
+                selectedTheme === theme
+                  ? 'ring-primary ring-offset-bg border-bg ring-2 ring-offset-2'
+                  : 'border-text-muted',
+              ]"
+              class="h-8 w-8 cursor-pointer overflow-hidden rounded-md border-1 transition-transform hover:scale-110"
+              :aria-label="`Select ${theme} theme`"
+              @click="selectPalette(theme)"
+            ></button>
           </div>
 
-          <!-- Color Theme Area -->
-          <div class="flex items-center justify-between">
-            <span class="text-text-muted text-sm font-semibold"
-              >Color Theme</span
+          <!-- Light/Dark Mode Buttons - Side by Side -->
+          <div class="flex gap-3">
+            <button
+              :class="[
+                !isDark
+                  ? 'bg-primary text-bg-light border-primary'
+                  : 'bg-bg text-text-muted border-primary/60',
+              ]"
+              class="flex flex-1 items-center justify-center gap-2 rounded-lg border-2 py-3 font-semibold hover:scale-102"
+              aria-label="Switch to light mode"
+              @click="isDark ? toggleDarkMode() : null"
             >
-            <div class="flex items-center gap-2">
-              <button
-                v-for="theme in Object.keys(themeColors)"
-                :key="theme"
-                @click="selectPalette(theme)"
-                :style="{ backgroundColor: themeColors[theme] }"
-                :class="[
-                  selectedTheme === theme
-                    ? 'ring-primary ring-offset-bg border-bg ring-1 ring-offset-2'
-                    : 'border-text-muted',
-                ]"
-                class="h-5 w-5 cursor-pointer overflow-hidden rounded-md border-1 transition-transform hover:scale-110"
-                :aria-label="`Select ${theme} theme`"
-              ></button>
-            </div>
+              <FontAwesomeIcon :icon="['fas', 'sun']" class="text-lg" />
+              <span>Light</span>
+            </button>
+
+            <button
+              :class="[
+                isDark
+                  ? 'bg-primary text-text-white border-primary'
+                  : 'bg-bg text-text-muted border-primary/60',
+              ]"
+              class="flex flex-1 items-center justify-center gap-2 rounded-lg border-2 py-3 font-semibold hover:scale-102"
+              aria-label="Switch to dark mode"
+              @click="!isDark ? toggleDarkMode() : null"
+            >
+              <FontAwesomeIcon :icon="['fas', 'moon']" class="text-lg" />
+              <span>Dark</span>
+            </button>
           </div>
         </div>
 
@@ -212,8 +214,8 @@
 
 <script setup lang="ts">
 import { ref, onMounted, watch, onUnmounted } from 'vue'
-import Container from './BaseContainer.vue'
-import ToggleButton from './ui/ToggleButton.vue'
+import Container from '@/components/layout/AppContainer.vue'
+import BaseToggleButton from '@components/base/BaseToggleButton.vue'
 
 onMounted(() => {
   applyStoredTheme()
@@ -251,10 +253,7 @@ const themeColors: Record<string, string> = {
 const selectedTheme = ref('green')
 const selectPalette = (theme: string) => {
   selectedTheme.value = theme
-  document.documentElement.style.setProperty(
-    '--color-primary',
-    themeColors[theme]
-  )
+  document.documentElement.style.setProperty('--color-primary', themeColors[theme])
   localStorage.setItem('theme-palette', theme)
 }
 
@@ -299,8 +298,7 @@ const togglePaletteMenu = () => {
 const applyStoredTheme = () => {
   const isDarkMode =
     localStorage.getItem('theme') === 'dark' ||
-    (!('theme' in localStorage) &&
-      window.matchMedia('(prefers-color-scheme: dark)').matches)
+    (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
 
   document.documentElement.classList.toggle('dark', isDarkMode)
   isDark.value = isDarkMode
@@ -320,8 +318,7 @@ const toggleDarkMode = () => {
 watch(isMobileMenuOpen, (isOpen) => {
   if (isOpen) {
     // Calculate scrollbar width before hiding it
-    const scrollbarWidth =
-      window.innerWidth - document.documentElement.clientWidth
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
 
     // Hide overflow on both html and body
     document.documentElement.style.overflow = 'hidden'

@@ -21,10 +21,7 @@
           red: 'oklch(0.66 0.19 10)',
         }
         if (themes[savedTheme]) {
-          document.documentElement.style.setProperty(
-            '--color-primary',
-            themes[savedTheme]
-          )
+          document.documentElement.style.setProperty('--color-primary', themes[savedTheme])
         }
       }
 
@@ -40,11 +37,9 @@
 
       applyStoredTheme()
 
-      window
-        .matchMedia('(prefers-color-scheme: dark)')
-        .addEventListener('change', () => {
-          if (!('theme' in localStorage)) applyStoredTheme()
-        })
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+        if (!('theme' in localStorage)) applyStoredTheme()
+      })
     </script>
   </head>
   <body>

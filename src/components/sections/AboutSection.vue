@@ -15,17 +15,14 @@
         <div
           class="flex w-full flex-col justify-center space-y-6 py-8 text-center lg:w-2/3 lg:py-0 lg:text-left"
         >
-          <h1 class="text-text text-4xl font-bold">
-            Building software from design to delivery
-          </h1>
+          <h1 class="text-text text-4xl font-bold">Building software from design to delivery</h1>
           <p class="text-text-muted text-lg leading-loose">
             I'm a full-stack developer specializing in
             <span class="font-semibold italic">Vue</span> and
-            <span class="font-semibold italic">Rails</span>. I work with the
-            entire product lifecycle—from design and engineering through testing
-            and deployment. Below are a few personal projects that I have worked
-            on. Feel free to explore the live sites or dive into my code on
-            GitHub.
+            <span class="font-semibold italic">Rails</span>. I work with the entire product
+            lifecycle—from design and engineering through testing and deployment. Below are a few
+            personal projects that I have worked on. Feel free to explore the live sites or dive
+            into my code on GitHub.
           </p>
           <!-- <div
             class="mb-1 rounded-lg bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 p-[1.5px]"
@@ -57,5 +54,5 @@
 </template>
 
 <script setup lang="ts">
-import Container from './BaseContainer.vue'
+import Container from '@/components/layout/AppContainer.vue'
 </script>

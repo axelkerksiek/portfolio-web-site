@@ -1,8 +1,13 @@
 {
   "name": "portfolio-web-site",
-  "private": true,
   "version": "0.0.0",
+  "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=24.0.0",
+    "pnpm": ">=10.22.0"
+  },
+  "packageManager": "pnpm@10.22.0+sha512.bf049efe995b28f527fd2b41ae0474ce29186f7edcb3bf545087bd61fbbebb2bf75362d1307fda09c2d288e1e499787ac12d4fcb617a974718a6051f2eee741c",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
@@ -10,7 +15,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint . --ext .vue,.js,.ts,.tsx --fix",
-    "lint:check": "eslint . --ext .vue,.js,.ts,.tsx"
+    "lint:check": "eslint . --ext .vue,.js,.ts,.tsx",
+    "prepare": "husky"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^7.0.1",
@@ -19,22 +25,35 @@
     "@fortawesome/free-solid-svg-icons": "^7.0.1",
     "@fortawesome/vue-fontawesome": "^3.1.2",
     "@headlessui/vue": "^1.7.23",
-    "@tailwindcss/vite": "^4.1.11",
     "@vueuse/core": "^13.5.0",
-    "tailwindcss": "^4.1.11",
     "vue": "^3.5.17"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@tailwindcss/vite": "^4.1.11",
+    "@types/node": "^24.10.1",
     "@vitejs/plugin-vue": "^6.0.0",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/eslint-config-typescript": "^14.6.0",
     "@vue/tsconfig": "^0.7.0",
     "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-vue": "^10.5.1",
-    "prettier": "^3.6.2",
+    "globals": "^16.5.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.6",
+    "prettier": "3.6.2",
     "prettier-plugin-tailwindcss": "^0.7.1",
+    "tailwindcss": "^4.1.11",
     "typescript": "~5.8.3",
+    "typescript-eslint": "^8.46.4",
     "vite": "^7.0.4",
     "vue-tsc": "^2.2.12"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,vue}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   }
 }
