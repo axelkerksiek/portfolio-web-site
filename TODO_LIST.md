@@ -2,6 +2,7 @@
 
 ## 🚀 High Priority
 
+- **Generate og-preview image** - I need to create a site preview image (1200x630 1.91:1)
 - **Fix mobile light/dark transition** - The mobile light/dark button colors are taking too long to transition
 - **Add LLM prompt file** - Create a structured markdown file for LLM context about the project
 - **Enhance About Me section** - Add interesting facts and details using LLM-generated content
