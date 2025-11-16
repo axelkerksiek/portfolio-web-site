@@ -26,7 +26,7 @@ export default defineConfig({
 
   // Build - Production optimizations
   build: {
-    sourcemap: true, // Debug production issues
+    sourcemap: false,
     rollupOptions: {
       output: {
         manualChunks: {

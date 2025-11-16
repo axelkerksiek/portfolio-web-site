@@ -3,26 +3,63 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Axel's Portfolio</title>
+
+    <!-- SEO Meta Tags -->
+    <meta
+      name="description"
+      content="Axel's Portfolio - Full-stack developer specializing in Vue and Ruby on Rails. Check out my projects and experience."
+    />
+    <meta name="author" content="Axel Kerksiek" />
+
+    <!-- Open Graph / Social Media Preview -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://axelkerksiek.com/" />
+    <meta property="og:title" content="Axel's Portfolio" />
+    <meta
+      property="og:description"
+      content="Full-stack developer specializing in Vue and Ruby on Rails. Check out my projects and experience."
+    />
+    <meta property="og:image" content="https://axelkerksiek.com/og-preview.png" />
+
+    <!-- Twitter Card -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://axelkerksiek.com/" />
+    <meta property="twitter:title" content="Axel's Portfolio" />
+    <meta
+      property="twitter:description"
+      content="Full-stack developer specializing in Vue and Ruby on Rails. Check out my projects and experience."
+    />
+    <meta property="twitter:image" content="https://axelkerksiek.com/og-preview.png" />
+
+    <!-- Establish connections early -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Load fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Favicon -->
     <link
       rel="icon"
       type="image/svg+xml"
       href="/images/logos/axel_logo_green_32x32_optimized.png"
     />
-    <title>Axel's Portfolio</title>
     <script>
       // Apply saved color palette theme
       const savedTheme = localStorage.getItem('theme-palette') || 'green'
-      if (savedTheme !== 'green') {
-        const themes = {
-          green: 'oklch(0.696 0.17 162.48)',
-          orange: 'oklch(0.7 0.18 45)',
-          blue: 'oklch(0.65 0.15 210)',
-          purple: 'oklch(0.67 0.2 290)',
-          red: 'oklch(0.66 0.19 10)',
-        }
-        if (themes[savedTheme]) {
-          document.documentElement.style.setProperty('--color-primary', themes[savedTheme])
-        }
+      const themes = {
+        green: 'oklch(0.696 0.17 162.48)',
+        orange: 'oklch(0.7 0.18 45)',
+        blue: 'oklch(0.65 0.15 210)',
+        purple: 'oklch(0.67 0.2 290)',
+        red: 'oklch(0.66 0.19 10)',
+      }
+      if (themes[savedTheme]) {
+        document.documentElement.style.setProperty('--color-primary', themes[savedTheme])
       }
 
       // Apply dark/light theme
