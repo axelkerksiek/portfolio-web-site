@@ -66,6 +66,7 @@
 body {
   margin: 0;
   min-width: 320px;
+  background-color: var(--color-bg-dark);
 }
 
 h1,
@@ -82,10 +83,14 @@ h6 {
     sans-serif;
 }
 
-* {
-  transition:
-    color 0.5s,
-    background-color 0.5s,
-    border-color 0.5s,
-    box-shadow 0.5s;
+@media (hover: hover) and (pointer: fine) {
+  *,
+  *::before,
+  *::after {
+    transition:
+      color 300ms ease-in-out,
+      background-color 300ms ease-in-out,
+      border-color 300ms ease-in-out,
+      box-shadow 300ms ease-in-out;
+  }
 }

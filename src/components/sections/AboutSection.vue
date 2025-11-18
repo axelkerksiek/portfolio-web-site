@@ -34,7 +34,7 @@
                 ✨ LLM generated fact goes here...
               </p>
               <button
-                class="text-text-black dark:text-text-white flex-shrink-0 cursor-pointer transition-colors hover:scale-110"
+                class="text-text-black dark:text-text-white flex-shrink-0 cursor-pointer hover:scale-110"
                 aria-label="Generate another fact"
                 title="Generate another fact"
               >

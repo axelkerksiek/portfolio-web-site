@@ -88,16 +88,23 @@
               <FontAwesomeIcon :icon="['fas', 'palette']" />
             </button>
 
-            <BaseToggleButton
-              :is-active="isDark"
-              :title="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
-              @toggle="toggleDarkMode"
-            >
-              <FontAwesomeIcon
-                :icon="isDark ? ['fas', 'moon'] : ['fas', 'sun']"
-                class="fa-3xs text-text text-[0.5rem]"
-              />
-            </BaseToggleButton>
+            <HeadlessUISwitch v-slot="{ checked }" v-model="isDark" as="template">
+              <button
+                :title="checked ? 'Switch to light mode' : 'Switch to dark mode'"
+                class="border-text-muted hover:border-text bg-primary relative inline-flex h-6 w-10 cursor-pointer items-center rounded-full border-1 hover:border-1"
+              >
+                <span class="sr-only">Toggle dark mode</span>
+                <span
+                  class="bg-bg relative inline-flex h-4 w-4 transform items-center justify-center rounded-full"
+                  :class="checked ? 'translate-x-5' : 'translate-x-[0.20rem]'"
+                >
+                  <FontAwesomeIcon
+                    :icon="checked ? ['fas', 'moon'] : ['fas', 'sun']"
+                    class="fa-3xs text-text text-[0.5rem]"
+                  />
+                </span>
+              </button>
+            </HeadlessUISwitch>
           </div>
         </div>
 
@@ -146,7 +153,7 @@
                   ? 'ring-primary ring-offset-bg border-bg ring-2 ring-offset-2'
                   : 'border-text-muted',
               ]"
-              class="h-8 w-8 cursor-pointer overflow-hidden rounded-md border-1 transition-transform hover:scale-110"
+              class="h-8 w-8 cursor-pointer overflow-hidden rounded-md border-1 hover:scale-110"
               :aria-label="`Select ${theme} theme`"
               @click="selectPalette(theme)"
             ></button>
@@ -160,7 +167,7 @@
                   ? 'bg-primary text-bg-light border-primary'
                   : 'bg-bg text-text-muted border-primary/60',
               ]"
-              class="flex flex-1 items-center justify-center gap-2 rounded-lg border-2 py-3 font-semibold hover:scale-102"
+              class="flex flex-1 items-center justify-center gap-2 rounded-lg border-2 py-3 font-semibold hover:scale-105"
               aria-label="Switch to light mode"
               @click="isDark ? toggleDarkMode() : null"
             >
@@ -174,7 +181,7 @@
                   ? 'bg-primary text-text-white border-primary'
                   : 'bg-bg text-text-muted border-primary/60',
               ]"
-              class="flex flex-1 items-center justify-center gap-2 rounded-lg border-2 py-3 font-semibold hover:scale-102"
+              class="flex flex-1 items-center justify-center gap-2 rounded-lg border-2 py-3 font-semibold hover:scale-105"
               aria-label="Switch to dark mode"
               @click="!isDark ? toggleDarkMode() : null"
             >
@@ -215,7 +222,6 @@
 <script setup lang="ts">
 import { ref, onMounted, watch, onUnmounted } from 'vue'
 import Container from '@/components/layout/AppContainer.vue'
-import BaseToggleButton from '@components/base/BaseToggleButton.vue'
 
 onMounted(() => {
   applyStoredTheme()
@@ -259,6 +265,11 @@ const selectPalette = (theme: string) => {
 
 watch(selectedTheme, (newTheme) => {
   updateFavicon(newTheme)
+})
+
+watch(isDark, (newValue) => {
+  localStorage.setItem('theme', newValue ? 'dark' : 'light')
+  applyStoredTheme()
 })
 
 const updateFavicon = (theme: string) => {
