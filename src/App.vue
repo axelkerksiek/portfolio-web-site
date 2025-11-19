@@ -2,7 +2,7 @@
 import AppNavigation from '@/components/layout/AppNavigation.vue'
 import AboutSection from '@/components/sections/AboutSection.vue'
 import ProjectsSection from '@/components/sections/ProjectsSection.vue'
-import Footer from '@/components/layout/AppFooter.vue'
+import AppFooter from '@/components/layout/AppFooter.vue'
 </script>
 
 <template>
@@ -10,6 +10,6 @@ import Footer from '@/components/layout/AppFooter.vue'
     <AppNavigation />
     <AboutSection />
     <ProjectsSection />
-    <Footer />
+    <AppFooter />
   </div>
 </template>
