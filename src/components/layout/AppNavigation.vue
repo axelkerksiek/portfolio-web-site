@@ -1,31 +1,177 @@
+<script setup lang="ts">
+// --- IMPORTS ---
+import { ref, watch, onMounted, onUnmounted } from 'vue'
+import { Switch } from '@headlessui/vue'
+
+// --- VARIABLES (reactive) ---
+const isDark = ref(false)
+const isMobileMenuOpen = ref(false)
+const showPaletteMenu = ref(false)
+const navRef = ref<HTMLElement | null>(null)
+const selectedTheme = ref('green')
+
+// --- VARIABLES (non-reactive) ---
+let faviconElement: HTMLLinkElement | null = null
+
+// --- CONSTANTS ---
+const NAV_ITEMS = [
+  { name: 'About', href: '#about' },
+  { name: 'Projects', href: '#projects' },
+]
+
+const THEME_COLORS: Record<string, string> = {
+  green: 'oklch(0.696 0.17 162.48)', // make sure this is the same value as --color-primary in :root
+  orange: 'oklch(0.7 0.18 45)',
+  blue: 'oklch(0.6547 0.1749 248.01)',
+  purple: 'oklch(0.67 0.2 290)',
+  red: 'oklch(0.66 0.19 10)',
+}
+
+const FAVICON_MAP: Record<string, string> = {
+  green: '/images/logos/axel_logo_green_32x32_optimized.png',
+  orange: '/images/logos/axel_logo_orange_32x32_optimized.png',
+  blue: '/images/logos/axel_logo_blue_32x32_optimized.png',
+  purple: '/images/logos/axel_logo_purple_32x32_optimized.png',
+  red: '/images/logos/axel_logo_red_32x32_optimized.png',
+}
+
+const DESKTOP_BREAKPOINT = '(min-width: 768px)' // Comes from tailwind's docs: https://tailwindcss.com/docs/responsive-design
+
+// --- FUNCTIONS ---
+const toggleDarkMode = () => {
+  isDark.value = !isDark.value
+}
+
+const togglePaletteMenu = () => {
+  showPaletteMenu.value = !showPaletteMenu.value
+}
+
+const toggleMobileMenu = () => {
+  isMobileMenuOpen.value = !isMobileMenuOpen.value
+}
+
+const closeMobileMenu = () => {
+  isMobileMenuOpen.value = false
+}
+
+const applyStoredTheme = () => {
+  const savedTheme = localStorage.getItem('theme')
+  const isDarkMode = savedTheme
+    ? savedTheme === 'dark'
+    : window.matchMedia('(prefers-color-scheme: dark)').matches
+
+  isDark.value = isDarkMode
+}
+
+const updateFavicon = (theme: string) => {
+  if (!faviconElement) {
+    faviconElement = document.querySelector("link[rel='icon']")
+  }
+
+  if (faviconElement) {
+    faviconElement.href = FAVICON_MAP[theme] || FAVICON_MAP.green
+  }
+}
+
+const applyColorPalette = (theme: string) => {
+  selectedTheme.value = theme
+  document.documentElement.style.setProperty('--color-primary', THEME_COLORS[theme])
+  updateFavicon(theme)
+}
+
+const applyStoredColorPalette = () => {
+  const storedTheme = localStorage.getItem('theme-palette') || 'green'
+  applyColorPalette(storedTheme)
+}
+
+const selectPalette = (theme: string) => {
+  applyColorPalette(theme)
+  localStorage.setItem('theme-palette', theme)
+}
+
+const scrollToTop = () => {
+  closeMobileMenu()
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+  history.replaceState(null, '', '/')
+}
+
+const handleResize = () => {
+  if (window.matchMedia(DESKTOP_BREAKPOINT).matches && isMobileMenuOpen.value) {
+    closeMobileMenu()
+  }
+}
+
+// --- WATCHERS ---
+watch(isDark, (DarkMode) => {
+  localStorage.setItem('theme', DarkMode ? 'dark' : 'light')
+  document.documentElement.classList.toggle('dark', DarkMode)
+})
+
+watch(isMobileMenuOpen, (isOpen) => {
+  if (isOpen) {
+    // Calculate scrollbar width
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
+
+    // Hide overflow on both html and body
+    document.documentElement.style.overflow = 'hidden'
+    document.body.style.overflow = 'hidden'
+
+    // Add padding to both body and the nav to prevent layout shift
+    document.body.style.paddingRight = `${scrollbarWidth}px`
+    if (navRef.value) {
+      navRef.value.style.paddingRight = `${scrollbarWidth}px`
+    }
+  } else {
+    // Revert overflow and padding changes
+    document.documentElement.style.overflow = ''
+    document.body.style.overflow = ''
+    document.body.style.paddingRight = ''
+    if (navRef.value) {
+      navRef.value.style.paddingRight = ''
+    }
+  }
+})
+
+// --- LIFECYCLE HOOKS ---
+onMounted(() => {
+  applyStoredTheme()
+  applyStoredColorPalette()
+  window.addEventListener('resize', handleResize)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', handleResize)
+  if (isMobileMenuOpen.value) {
+    closeMobileMenu()
+  }
+})
+</script>
+
 <template>
   <nav
     ref="navRef"
-    class="bg-bg-dark text-text dark:border-border-muted fixed top-0 z-50 w-full border-b border-transparent pt-4 pb-4 shadow-md dark:shadow-sm"
+    class="bg-bg-dark text-text dark:border-border-muted fixed top-0 z-50 w-full border-b border-transparent pt-4 pb-4 shadow-md"
   >
-    <Container>
+    <AppContainer>
       <div class="flex items-center justify-between">
-        <!-- Logo with Image -->
-        <a
-          href="#about"
-          class="flex cursor-pointer items-center space-x-3"
-          @click="closeMobileMenu"
-        >
+        <!-- Logo -->
+        <a href="/" class="flex cursor-pointer items-center gap-4" @click.prevent="scrollToTop">
           <img
             src="/images/logos/axel_logo_250x250_optimized.png"
             alt="Logo"
             class="bg-primary h-8 w-8 rounded-md object-cover"
           />
-          <div class="text-text text-2xl font-bold md:text-lg">Axel's Portfolio</div>
+          <div class="text-text text-2xl font-bold">Axel's Portfolio</div>
         </a>
 
         <!-- Desktop Navigation -->
-        <div class="hidden items-center gap-3 md:flex">
+        <div class="hidden items-center gap-4 md:flex">
+          <!-- Navigation Links -->
           <a
-            v-for="item in navItems"
+            v-for="item in NAV_ITEMS"
             :key="item.name"
             :href="item.href"
-            class="text-text hover:text-primary text-base font-semibold"
+            class="text-text hover:text-primary font-semibold"
           >
             {{ item.name }}
           </a>
@@ -33,90 +179,89 @@
           <!-- Vertical Divider -->
           <div class="bg-text h-4 w-0.25"></div>
 
-          <!-- External Links and theme options -->
-          <div class="text-text flex items-center gap-3 text-xl">
-            <a
-              href="https://www.linkedin.com/in/axelkerksiek"
-              target="_blank"
-              rel="noopener"
-              class="text-text hover:text-primary"
-              aria-label="LinkedIn"
-              title="View LinkedIn profile"
-            >
-              <FontAwesomeIcon :icon="['fab', 'square-linkedin']" />
-            </a>
-            <a
-              href="https://github.com/axelkerksiek"
-              target="_blank"
-              rel="noopener"
-              class="text-text hover:text-primary"
-              aria-label="GitHub"
-              title="View GitHub profile"
-            >
-              <FontAwesomeIcon :icon="['fab', 'square-github']" />
-            </a>
+          <!-- External Links -->
+          <a
+            href="https://www.linkedin.com/in/axelkerksiek"
+            target="_blank"
+            rel="noreferrer"
+            class="text-text hover:text-primary text-xl"
+            aria-label="LinkedIn"
+            title="View LinkedIn profile"
+          >
+            <FontAwesomeIcon :icon="['fab', 'square-linkedin']" />
+          </a>
+          <a
+            href="https://github.com/axelkerksiek"
+            target="_blank"
+            rel="noreferrer"
+            class="text-text hover:text-primary text-xl"
+            aria-label="GitHub"
+            title="View GitHub profile"
+          >
+            <FontAwesomeIcon :icon="['fab', 'square-github']" />
+          </a>
 
-            <!-- Vertical Divider -->
-            <div class="bg-text h-4 w-0.25"></div>
+          <!-- Vertical Divider -->
+          <div class="bg-text h-4 w-0.25"></div>
 
-            <!-- Color Palette Menu with slide-in animation -->
-            <Transition name="slide-fade">
-              <div v-if="showPaletteMenu" class="ml-2 flex origin-right items-center gap-2">
-                <!-- Button uses theme color classes directly -->
-                <button
-                  v-for="theme in Object.keys(themeColors)"
-                  :key="theme"
-                  :style="{ backgroundColor: themeColors[theme] }"
-                  :class="[
-                    selectedTheme === theme
-                      ? 'ring-primary ring-offset-bg-dark border-bg-dark ring-1 ring-offset-2'
-                      : 'border-border',
-                  ]"
-                  class="h-5 w-5 cursor-pointer overflow-hidden rounded-sm border-1 hover:scale-110"
-                  @click="selectPalette(theme)"
-                ></button>
-              </div>
-            </Transition>
-
-            <!-- Color Palette Button -->
-            <button
-              class="text-text hover:text-primary cursor-pointer"
-              aria-label="Choose theme color"
-              title="Choose theme color"
-              @click="togglePaletteMenu"
-            >
-              <FontAwesomeIcon :icon="['fas', 'palette']" />
-            </button>
-
-            <HeadlessUISwitch v-slot="{ checked }" v-model="isDark" as="template">
+          <!-- Color Palette Options -->
+          <Transition name="slide-fade">
+            <div v-if="showPaletteMenu" class="ml-2 flex origin-right items-center gap-2">
               <button
-                :title="checked ? 'Switch to light mode' : 'Switch to dark mode'"
-                class="border-text-muted hover:border-text bg-primary relative inline-flex h-6 w-10 cursor-pointer items-center rounded-full border-1 hover:border-1"
+                v-for="theme in Object.keys(THEME_COLORS)"
+                :key="theme"
+                :style="{ backgroundColor: THEME_COLORS[theme] }"
+                :class="[
+                  selectedTheme === theme
+                    ? 'ring-primary ring-offset-bg-dark border-bg-dark ring-1 ring-offset-2'
+                    : 'border-border',
+                ]"
+                class="h-5 w-5 cursor-pointer overflow-hidden rounded-sm border-1 hover:scale-110"
+                @click="selectPalette(theme)"
+              ></button>
+            </div>
+          </Transition>
+
+          <!-- Color Palette Button -->
+          <button
+            class="text-text hover:text-primary cursor-pointer text-xl"
+            aria-label="Color Palette"
+            title="Choose theme color"
+            @click="togglePaletteMenu"
+          >
+            <FontAwesomeIcon :icon="['fas', 'palette']" />
+          </button>
+
+          <Switch v-slot="{ checked }" v-model="isDark" as="template">
+            <button
+              :title="checked ? 'Switch to light mode' : 'Switch to dark mode'"
+              class="border-text-muted hover:border-text bg-primary inline-flex h-6 w-10 cursor-pointer items-center rounded-full border-1"
+            >
+              <span class="sr-only">Toggle dark mode</span>
+              <span
+                class="bg-bg inline-flex h-4 w-4 transform items-center justify-center rounded-full"
+                :class="checked ? 'translate-x-[1.25rem]' : 'translate-x-[0.20rem]'"
               >
-                <span class="sr-only">Toggle dark mode</span>
-                <span
-                  class="bg-bg relative inline-flex h-4 w-4 transform items-center justify-center rounded-full"
-                  :class="checked ? 'translate-x-5' : 'translate-x-[0.20rem]'"
-                >
-                  <FontAwesomeIcon
-                    :icon="checked ? ['fas', 'moon'] : ['fas', 'sun']"
-                    class="fa-3xs text-text text-[0.5rem]"
-                  />
-                </span>
-              </button>
-            </HeadlessUISwitch>
-          </div>
+                <FontAwesomeIcon
+                  :icon="checked ? ['fas', 'moon'] : ['fas', 'sun']"
+                  class="text-text text-[0.5rem]"
+                />
+              </span>
+            </button>
+          </Switch>
         </div>
 
         <!-- Mobile Menu Button -->
         <div class="md:hidden">
           <button
-            class="text-text hover:text-primary text-2xl"
+            class="text-text cursor-pointer text-2xl"
             :aria-expanded="isMobileMenuOpen"
             aria-label="Toggle mobile menu"
             @click="toggleMobileMenu"
           >
-            <FontAwesomeIcon :icon="isMobileMenuOpen ? ['fas', 'times'] : ['fas', 'bars']" />
+            <FontAwesomeIcon
+              :icon="isMobileMenuOpen ? ['fas', 'xmark'] : ['fas', 'bars-staggered']"
+            />
           </button>
         </div>
       </div>
@@ -125,51 +270,50 @@
       <div
         v-show="isMobileMenuOpen"
         class="bg-bg-dark dark:border-border-muted fixed inset-0 top-16 z-40 overflow-y-auto border-t border-transparent shadow-[inset_0_4px_6px_-1px_rgb(0_0_0_/_0.1)] md:hidden"
-        style="width: 100vw; left: 0"
       >
-        <!-- Navigation Links (Now first) -->
-        <div class="flex flex-col space-y-3 p-4 px-16">
+        <!-- Navigation Links -->
+        <div class="flex flex-col gap-4 px-18 py-4">
           <a
-            v-for="item in navItems"
+            v-for="item in NAV_ITEMS"
             :key="item.name"
             :href="item.href"
-            class="text-text hover:text-primary border-border-muted border-b pb-3 text-center text-xl font-semibold"
+            class="text-text border-border-muted border-b pb-4 text-center text-xl font-semibold"
             @click="closeMobileMenu"
           >
             {{ item.name }}
           </a>
         </div>
 
-        <!-- Appearance Section (Now after links) -->
-        <div class="bg-bg mx-16 flex flex-col space-y-6 rounded-lg px-4 py-4">
-          <!-- Color Theme Squares - Centered -->
+        <!-- Appearance Section -->
+        <div class="bg-bg mx-18 flex flex-col gap-8 rounded-lg p-4">
+          <!-- Color Theme Squares -->
           <div class="flex items-center justify-between">
             <button
-              v-for="theme in Object.keys(themeColors)"
+              v-for="theme in Object.keys(THEME_COLORS)"
               :key="theme"
-              :style="{ backgroundColor: themeColors[theme] }"
+              :style="{ backgroundColor: THEME_COLORS[theme] }"
               :class="[
                 selectedTheme === theme
                   ? 'ring-primary ring-offset-bg border-bg ring-2 ring-offset-2'
                   : 'border-text-muted',
               ]"
-              class="h-8 w-8 cursor-pointer overflow-hidden rounded-md border-1 hover:scale-110"
+              class="h-8 w-8 cursor-pointer overflow-hidden rounded-md border-1"
               :aria-label="`Select ${theme} theme`"
               @click="selectPalette(theme)"
             ></button>
           </div>
 
-          <!-- Light/Dark Mode Buttons - Side by Side -->
-          <div class="flex gap-3">
+          <!-- Light/Dark Mode Buttons -->
+          <div class="flex gap-4">
             <button
               :class="[
                 !isDark
                   ? 'bg-primary text-bg-light border-primary'
                   : 'bg-bg text-text-muted border-primary/60',
               ]"
-              class="flex flex-1 items-center justify-center gap-2 rounded-lg border-2 py-3 font-semibold hover:scale-105"
+              class="flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg border-2 py-4 font-semibold"
               aria-label="Switch to light mode"
-              @click="isDark ? toggleDarkMode() : null"
+              @click="isDark && toggleDarkMode()"
             >
               <FontAwesomeIcon :icon="['fas', 'sun']" class="text-lg" />
               <span>Light</span>
@@ -181,9 +325,9 @@
                   ? 'bg-primary text-text-white border-primary'
                   : 'bg-bg text-text-muted border-primary/60',
               ]"
-              class="flex flex-1 items-center justify-center gap-2 rounded-lg border-2 py-3 font-semibold hover:scale-105"
+              class="flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg border-2 py-4 font-semibold"
               aria-label="Switch to dark mode"
-              @click="!isDark ? toggleDarkMode() : null"
+              @click="!isDark && toggleDarkMode()"
             >
               <FontAwesomeIcon :icon="['fas', 'moon']" class="text-lg" />
               <span>Dark</span>
@@ -196,170 +340,33 @@
           <a
             href="https://www.linkedin.com/in/axelkerksiek"
             target="_blank"
-            rel="noopener"
-            class="text-text-muted hover:text-primary"
+            rel="noreferrer"
+            class="text-text-muted"
             aria-label="LinkedIn"
-            title="View my LinkedIn profile"
           >
             <FontAwesomeIcon :icon="['fab', 'square-linkedin']" />
           </a>
           <a
             href="https://github.com/axelkerksiek"
             target="_blank"
-            rel="noopener"
-            class="text-text-muted hover:text-primary"
+            rel="noreferrer"
+            class="text-text-muted"
             aria-label="GitHub"
-            title="View my GitHub profile"
           >
             <FontAwesomeIcon :icon="['fab', 'square-github']" />
           </a>
         </div>
       </div>
-    </Container>
+    </AppContainer>
   </nav>
 </template>
 
-<script setup lang="ts">
-import { ref, onMounted, watch, onUnmounted } from 'vue'
-import Container from '@/components/layout/AppContainer.vue'
-
-onMounted(() => {
-  applyStoredTheme()
-  const storedTheme = localStorage.getItem('theme-palette') || 'green'
-  selectedTheme.value = storedTheme
-  updateFavicon(storedTheme)
-  window.addEventListener('resize', handleResize)
-})
-
-onUnmounted(() => {
-  window.removeEventListener('resize', handleResize)
-  if (isMobileMenuOpen.value) {
-    closeMobileMenu()
-  }
-})
-
-const navItems = [
-  { name: 'About', href: '#about' },
-  { name: 'Projects', href: '#projects' },
-]
-
-const isDark = ref(false)
-const isMobileMenuOpen = ref(false)
-const showPaletteMenu = ref(false)
-
-const navRef = ref<HTMLElement | null>(null)
-
-const themeColors: Record<string, string> = {
-  green: 'oklch(0.696 0.17 162.48)', //make sure this is the same value as --color-primary in :root
-  orange: 'oklch(0.7 0.18 45)',
-  blue: 'oklch(0.6547 0.1749 248.01)',
-  purple: 'oklch(0.67 0.2 290)',
-  red: 'oklch(0.66 0.19 10)',
-}
-const selectedTheme = ref('green')
-const selectPalette = (theme: string) => {
-  selectedTheme.value = theme
-  document.documentElement.style.setProperty('--color-primary', themeColors[theme])
-  localStorage.setItem('theme-palette', theme)
-}
-
-watch(selectedTheme, (newTheme) => {
-  updateFavicon(newTheme)
-})
-
-watch(isDark, (newValue) => {
-  localStorage.setItem('theme', newValue ? 'dark' : 'light')
-  applyStoredTheme()
-})
-
-const updateFavicon = (theme: string) => {
-  const favicon = document.querySelector("link[rel='icon']") as HTMLLinkElement
-  if (favicon) {
-    // Map theme names to their corresponding logo files
-    const faviconMap: Record<string, string> = {
-      green: '/images/logos/axel_logo_green_32x32_optimized.png',
-      orange: '/images/logos/axel_logo_orange_32x32_optimized.png',
-      blue: '/images/logos/axel_logo_blue_32x32_optimized.png',
-      purple: '/images/logos/axel_logo_purple_32x32_optimized.png',
-      red: '/images/logos/axel_logo_red_32x32_optimized.png',
-    }
-    favicon.href = faviconMap[theme] || faviconMap.green
-  }
-}
-
-const toggleMobileMenu = () => {
-  isMobileMenuOpen.value = !isMobileMenuOpen.value
-}
-
-const closeMobileMenu = () => {
-  isMobileMenuOpen.value = false
-}
-
-const handleResize = () => {
-  if (window.innerWidth >= 768 && isMobileMenuOpen.value) {
-    closeMobileMenu()
-  }
-}
-
-const togglePaletteMenu = () => {
-  showPaletteMenu.value = !showPaletteMenu.value
-}
-
-// Initialize theme from localStorage
-const applyStoredTheme = () => {
-  const isDarkMode =
-    localStorage.getItem('theme') === 'dark' ||
-    (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
-
-  document.documentElement.classList.toggle('dark', isDarkMode)
-  isDark.value = isDarkMode
-}
-
-// Toggle dark mode
-const toggleDarkMode = () => {
-  if (isDark.value) {
-    localStorage.setItem('theme', 'light')
-  } else {
-    localStorage.setItem('theme', 'dark')
-  }
-  applyStoredTheme()
-}
-
-// Watch for mobile menu changes to prevent scrolling
-watch(isMobileMenuOpen, (isOpen) => {
-  if (isOpen) {
-    // Calculate scrollbar width before hiding it
-    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
-
-    // Hide overflow on both html and body
-    document.documentElement.style.overflow = 'hidden'
-    document.body.style.overflow = 'hidden'
-
-    // Add padding to both body and the fixed nav to prevent layout shift
-    document.body.style.paddingRight = `${scrollbarWidth}px`
-    if (navRef.value) {
-      navRef.value.style.paddingRight = `${scrollbarWidth}px`
-    }
-  } else {
-    // Restore overflow and padding
-    document.documentElement.style.overflow = ''
-    document.body.style.overflow = ''
-    document.body.style.paddingRight = ''
-    if (navRef.value) {
-      navRef.value.style.paddingRight = ''
-    }
-  }
-})
-</script>
-
 <style scoped>
-/* Slide-fade transition for palette menu */
 .slide-fade-enter-active,
 .slide-fade-leave-active {
   transition: all 0.2s ease-out;
-  overflow: hidden;
-  padding: 4px; /* Space for rings to show */
-  margin: -4px; /* Compensate for padding */
+  padding: 4px;
+  margin: -4px;
 }
 
 .slide-fade-enter-from,
@@ -367,12 +374,12 @@ watch(isMobileMenuOpen, (isOpen) => {
   transform: translateX(10px);
   opacity: 0;
   max-width: 0;
-  margin-left: -4px; /* Adjust for padding compensation */
+  margin-left: -4px;
 }
 
 .slide-fade-enter-to,
 .slide-fade-leave-from {
   max-width: 200px;
-  margin-left: calc(0.5rem - 4px); /* ml-2 minus padding compensation */
+  margin-left: calc(0.5rem - 4px);
 }
 </style>

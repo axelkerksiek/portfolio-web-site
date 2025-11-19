@@ -22,7 +22,12 @@ export default typescriptEslint.config(
       },
     },
     rules: {
-      // your rules
+      'vue/block-order': [
+        'error',
+        {
+          order: ['script', 'template', 'style'],
+        },
+      ],
     },
   },
   eslintConfigPrettier

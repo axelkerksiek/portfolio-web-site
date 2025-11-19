@@ -1,6 +1,6 @@
 <template>
   <section id="about" class="bg-bg-dark scroll-mt-10 pt-26">
-    <Container>
+    <AppContainer>
       <div class="flex flex-col lg:flex-row">
         <!-- Image div - centered -->
         <div class="flex w-full items-center justify-center lg:w-1/3">
@@ -49,10 +49,6 @@
           </p> -->
         </div>
       </div>
-    </Container>
+    </AppContainer>
   </section>
 </template>
-
-<script setup lang="ts">
-import Container from '@/components/layout/AppContainer.vue'
-</script>
