@@ -1,30 +1,29 @@
 <template>
-  <section id="about" class="bg-bg-dark scroll-mt-10 pt-26">
-    <AppContainer>
-      <div class="flex flex-col lg:flex-row">
-        <!-- Image div - centered -->
-        <div class="flex w-full items-center justify-center lg:w-1/3">
-          <img
-            src="/images/portraits/axel_portrait_750x750_optimized.jpg"
-            alt="Portrait of Axel"
-            class="ring-primary h-auto w-full max-w-[16rem] rounded-full object-cover ring-4"
-          />
-        </div>
+  <section id="about" class="bg-bg-dark scroll-mt-10 pt-24">
+    <AppContainer class="flex flex-col lg:flex-row">
+      <!-- Image -->
+      <div class="flex w-full items-center justify-center lg:w-1/3">
+        <img
+          src="/images/portraits/axel_portrait_750x750_optimized.jpg"
+          alt="Portrait of Axel"
+          class="ring-primary h-auto w-full max-w-[16rem] rounded-full object-cover ring-4"
+        />
+      </div>
 
-        <!-- Content div - centered on mobile, left aligned on large screens -->
-        <div
-          class="flex w-full flex-col justify-center space-y-6 py-8 text-center lg:w-2/3 lg:py-0 lg:text-left"
-        >
-          <h1 class="text-text text-4xl font-bold">Building software from design to delivery</h1>
-          <p class="text-text-muted text-lg leading-loose">
-            I'm a full-stack developer specializing in
-            <span class="font-semibold italic">Vue</span> and
-            <span class="font-semibold italic">Rails</span>. I work with the entire product
-            lifecycle—from design and engineering through testing and deployment. Below are a few
-            personal projects that I have worked on. Feel free to explore the live sites or dive
-            into my code on GitHub.
-          </p>
-          <!-- <div
+      <!-- Content -->
+      <div
+        class="flex w-full flex-col justify-center gap-6 py-8 text-center lg:w-2/3 lg:py-0 lg:text-left"
+      >
+        <h1 class="text-text text-4xl font-bold">Building software from design to delivery</h1>
+        <p class="text-text-muted text-lg leading-loose">
+          I'm a full-stack developer specializing in
+          <span class="font-semibold italic">Vue</span> and
+          <span class="font-semibold italic">Rails</span>. I work with the entire product
+          lifecycle—from design and engineering through testing and deployment. Below are a few
+          personal projects that I have worked on. Feel free to explore the live sites or dive into
+          my code on GitHub.
+        </p>
+        <!-- <div
             class="mb-1 rounded-lg bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 p-[1.5px]"
           >
             <div class="bg-bg flex justify-between gap-4 rounded-lg p-4">
@@ -47,7 +46,6 @@
           >
             Generated with <span class="font-semibold">AWS Bedrock</span>
           </p> -->
-        </div>
       </div>
     </AppContainer>
   </section>

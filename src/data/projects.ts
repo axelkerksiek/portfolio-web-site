@@ -1,4 +1,4 @@
-type ProjectFeature = string | { title: string; description: string }
+type ProjectFeature = string
 type Project = {
   title: string
   description: string
