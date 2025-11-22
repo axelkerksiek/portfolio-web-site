@@ -5,15 +5,29 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
 jobs:
   release:
     name: Semantic Release
     runs-on: ubuntu-latest
     steps:
+      - name: Generate installation access token
+        id: generate-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.AXEL_GH_APP_ID }}
+          private-key: ${{ secrets.AXEL_GH_APP_PRIVATE_KEY }}
+          installation-id: ${{ secrets.AXEL_GH_APP_INSTALLATION_ID }}
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ steps.generate-token.outputs.token }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -36,5 +50,5 @@ jobs:
 
       - name: Run semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
         run: pnpm exec semantic-release
