@@ -13,7 +13,7 @@ export const projects: Project[] = [
   {
     title: '📋 ToDo Web App',
     description:
-      'A simple ToDo web app to manage your tasks with a twist: choose your desired level of sarcasic motivation.',
+      'A simple ToDo web app to manage your tasks with a twist: choose your desired level of sarcastic motivation.',
     notable_features: ['Customizable level of sarcasm', 'Fun reminders'],
     tech: ['Ruby + Rails', 'PostgreSQL', 'Vite + Vue 3', 'Tailwind CSS', 'SPA', 'AWS'],
     image: '/images/projects/under_construction_3_2_optimized.png',
@@ -24,7 +24,7 @@ export const projects: Project[] = [
     title: '🕹️ 2D Arcade Game',
     description:
       'A 2D space shooter game inspired by Stargate: SG-1. Fight your way through waves of enemies unlocking upgrades as you progress. ',
-    notable_features: ['Mulitple levels', 'RPG mechanics', 'Pixel art and music'],
+    notable_features: ['Multiple levels', 'RPG mechanics', 'Pixel art and music'],
     tech: ['PICO-8', 'Lua'],
     image: '/images/projects/under_construction_3_2_optimized.png',
     github_url: '',

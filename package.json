@@ -16,6 +16,7 @@
     "format:check": "prettier --check .",
     "lint": "eslint . --ext .vue,.js,.ts,.tsx --fix",
     "lint:check": "eslint . --ext .vue,.js,.ts,.tsx",
+    "spellcheck": "cspell \"**/*.{js,jsx,ts,tsx,vue,md,json}\"",
     "prepare": "husky"
   },
   "dependencies": {
@@ -40,6 +41,7 @@
     "@vue/eslint-config-typescript": "^14.6.0",
     "@vue/tsconfig": "^0.7.0",
     "conventional-changelog-conventionalcommits": "^9.1.0",
+    "cspell": "^9.3.2",
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-vue": "^10.5.1",
@@ -58,7 +60,11 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx,vue}": [
       "eslint --fix",
-      "prettier --write"
+      "prettier --write",
+      "cspell --no-must-find-files"
+    ],
+    "*.{md,json,yml,yaml}": [
+      "cspell --no-must-find-files"
     ]
   },
   "release": {
