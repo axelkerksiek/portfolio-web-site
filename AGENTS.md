@@ -124,7 +124,6 @@ Primary color defined in **3 places** (must stay in sync):
 - **Secrets required:**
   - `AXEL_GH_APP_ID`
   - `AXEL_GH_APP_PRIVATE_KEY`
-  - `AXEL_GH_APP_INSTALLATION_ID`
   - `AWS_ACCESS_KEY_ID`
   - `AWS_SECRET_ACCESS_KEY`
   - `CLOUDFRONT_DISTRIBUTION_ID`
