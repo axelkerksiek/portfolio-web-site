@@ -21,7 +21,6 @@ jobs:
         with:
           app-id: ${{ secrets.AXEL_GH_APP_ID }}
           private-key: ${{ secrets.AXEL_GH_APP_PRIVATE_KEY }}
-          installation-id: ${{ secrets.AXEL_GH_APP_INSTALLATION_ID }}
 
       - name: Checkout
         uses: actions/checkout@v4
