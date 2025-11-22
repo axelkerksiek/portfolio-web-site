@@ -1,3 +1,9 @@
+## [1.0.1](https://github.com/axelkerksiek/portfolio-web-site/compare/v1.0.0...v1.0.1) (2025-11-22)
+
+### Bug Fixes
+
+* spelling mistakes ([4c71516](https://github.com/axelkerksiek/portfolio-web-site/commit/4c71516db0ffc5fb12d0e0e6dda8d26be45eed6e))
+
 ## 1.0.0 (2025-11-22)
 
 ### Features
