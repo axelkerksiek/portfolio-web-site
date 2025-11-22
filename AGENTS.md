@@ -84,6 +84,51 @@ Primary color defined in **3 places** (must stay in sync):
 - Project type defined in `src/data/projects.ts`
 - Path mapping matches Vite aliases
 
+## Infrastructure
+
+### AWS Deployment
+
+- **S3 Bucket:** `axelkerksiek.com` - Static website hosting
+- **CloudFront Distribution:** - Global CDN with SSL
+- **Domain:** `axelkerksiek.com` - Route 53 hosted zone
+- **Region:** `us-east-1`
+- Build artifacts deployed via GitHub Actions
+
+### CI/CD Pipeline
+
+**Release Workflow** (`.github/workflows/release.yaml`):
+- Triggers on push to `main`
+- Uses semantic-release for automated versioning
+- Analyzes commits using Conventional Commits
+- Creates GitHub releases and Git tags
+- Updates `CHANGELOG.md` and `package.json` version
+
+**Deploy Workflow** (`.github/workflows/deploy.yaml`):
+- Triggers on `release: created` event
+- Builds the application (`pnpm build`)
+- Uploads `dist/` to S3 bucket
+- Invalidates CloudFront cache for immediate updates
+
+### Semantic Release Configuration
+
+- **Version bumps:**
+  - `feat:` → minor version (1.0.0 → 1.1.0)
+  - `fix:` → patch version (1.0.0 → 1.0.1)
+  - `feat!:` or `fix!:` → major version (1.0.0 → 2.0.0)
+- **No release:** `chore:`, `docs:`, `test:`, `perf:`, `ci:`
+- **Branch protection:** GitHub App used to bypass branch protection rules
+
+### GitHub Actions Setup
+
+- **Release workflow:** Uses GitHub App for authentication
+- **Secrets required:**
+  - `AXEL_GH_APP_ID`
+  - `AXEL_GH_APP_PRIVATE_KEY`
+  - `AXEL_GH_APP_INSTALLATION_ID`
+  - `AWS_ACCESS_KEY_ID`
+  - `AWS_SECRET_ACCESS_KEY`
+  - `CLOUDFRONT_DISTRIBUTION_ID`
+
 ## Key Conventions
 
 - PascalCase component files: `AppNavigation.vue`

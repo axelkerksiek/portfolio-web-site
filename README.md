@@ -15,7 +15,8 @@ A modern, responsive portfolio website built with Vue 3, TypeScript, and Tailwin
 - 📱 **Fully Responsive** - Mobile-first design using Tailwind CSS v4
 - 🎯 **Type-Safe** - Full TypeScript support
 - 🎭 **Modern UI** - Headless UI components and FontAwesome icons
-- ✅ **Code Quality** - ESLint, Prettier, and pre-commit hooks
+- ✅ **Code Quality** - ESLint, Prettier, CSpell and other pre-commit hooks
+- 🚀 **Automated CI/CD** - Semantic versioning and automated AWS deployments
 
 ## 🛠️ Tech Stack
 
@@ -41,6 +42,11 @@ A modern, responsive portfolio website built with Vue 3, TypeScript, and Tailwin
 - **Prettier** - Code formatting
 - **Husky** - Git hooks
 - **lint-staged** - Run linters on staged files
+
+### Infrastructure
+
+- **[AWS S3 & CloudFront](https://aws.amazon.com/)** - Static hosting and global CDN
+- **[GitHub Actions](https://github.com/features/actions)** - Automated CI/CD with semantic-release
 
 ## 🚀 Getting Started
 
