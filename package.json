@@ -61,10 +61,10 @@
     "*.{js,jsx,ts,tsx,vue}": [
       "eslint --fix",
       "prettier --write",
-      "cspell --no-must-find-files --no-progress"
+      "cspell --no-progress"
     ],
     "*.{md,json,yml,yaml}": [
-      "cspell --no-must-find-files --no-progress"
+      "cspell --no-progress"
     ]
   },
   "release": {
