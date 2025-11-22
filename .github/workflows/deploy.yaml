@@ -1,16 +1,13 @@
-name: Deploy to S3
+name: Deploy
 
 on:
-  workflow_run:
-    workflows: ['Release']
-    types:
-      - completed
+  release:
+    types: [created]
 
 jobs:
   deploy:
     name: Deploy to S3
     runs-on: ubuntu-latest
-    if: github.event.workflow_run.conclusion == 'success'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -50,13 +47,8 @@ jobs:
         run: |
           aws s3 sync dist/ s3://axelkerksiek.com --delete
 
-      - name: Get CloudFront distribution ID
-        id: cloudfront
-        run: |
-          DISTRIBUTION_ID=$(aws cloudfront list-distributions --query "DistributionList.Items[?Aliases.Items[?contains(@, 'axelkerksiek.com')]].Id" --output text | head -n 1)
-          echo "id=$DISTRIBUTION_ID" >> $GITHUB_OUTPUT
-          echo "Found distribution: $DISTRIBUTION_ID"
-
       - name: Invalidate CloudFront
         run: |
-          aws cloudfront create-invalidation --distribution-id ${{ steps.cloudfront.outputs.id }} --paths "/*"
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} \
+            --paths "/*"
