@@ -1,0 +1,63 @@
+name: Deploy to S3
+
+on:
+  workflow_run:
+    workflows: ['Release']
+    types:
+      - completed
+
+jobs:
+  deploy:
+    name: Deploy to S3
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion == 'success'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+
+      - name: Get pnpm version from package.json
+        id: pnpm-version
+        run: |
+          PNPM_VERSION=$(node -p "require('./package.json').packageManager.match(/pnpm@([\d.]+)/)[1]")
+          echo "version=$PNPM_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: ${{ steps.pnpm-version.outputs.version }}
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Upload files to S3
+        run: |
+          aws s3 sync dist/ s3://axelkerksiek.com --delete
+
+      - name: Get CloudFront distribution ID
+        id: cloudfront
+        run: |
+          DISTRIBUTION_ID=$(aws cloudfront list-distributions --query "DistributionList.Items[?Aliases.Items[?contains(@, 'axelkerksiek.com')]].Id" --output text | head -n 1)
+          echo "id=$DISTRIBUTION_ID" >> $GITHUB_OUTPUT
+          echo "Found distribution: $DISTRIBUTION_ID"
+
+      - name: Invalidate CloudFront
+        run: |
+          aws cloudfront create-invalidation --distribution-id ${{ steps.cloudfront.outputs.id }} --paths "/*"

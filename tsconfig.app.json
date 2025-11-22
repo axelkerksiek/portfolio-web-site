@@ -7,8 +7,13 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@components/*": ["./src/components/*"]
+      "@components/*": ["./src/components/*"],
+      "@root/*": ["./*"]
     },
+
+    /* JSON Support */
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
 
     /* Linting */
     "strict": true,
