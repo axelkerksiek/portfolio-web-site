@@ -1,3 +1,9 @@
+## [1.1.2](https://github.com/axelkerksiek/portfolio-web-site/compare/v1.1.1...v1.1.2) (2025-11-24)
+
+### Bug Fixes
+
+* Fixed sitemap date ([531369d](https://github.com/axelkerksiek/portfolio-web-site/commit/531369dba5d6ff45845ebdbc37b054e8f1de42e2))
+
 ## [1.1.1](https://github.com/axelkerksiek/portfolio-web-site/compare/v1.1.0...v1.1.1) (2025-11-24)
 
 ### Bug Fixes
