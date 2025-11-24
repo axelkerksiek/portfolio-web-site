@@ -5,6 +5,8 @@ updates:
     directory: '/'
     schedule:
       interval: 'weekly'
+    allow:
+      - dependency-type: 'direct'
     open-pull-requests-limit: 1
     reviewers:
       - 'axelkerksiek'
@@ -12,12 +14,12 @@ updates:
       - 'dependencies'
       - 'automated'
     commit-message:
-      prefix: 'chore'
-      include: 'scope'
+      prefix: 'chore(deps)'
     # Group ALL dependencies together (prod + dev)
     groups:
       all-dependencies:
-        dependency-type: 'all'
+        patterns:
+          - '*'
 
   # Enable version updates for GitHub Actions
   - package-ecosystem: 'github-actions'
