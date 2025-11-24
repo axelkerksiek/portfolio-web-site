@@ -1,3 +1,9 @@
+## [1.0.3](https://github.com/axelkerksiek/portfolio-web-site/compare/v1.0.2...v1.0.3) (2025-11-24)
+
+### Bug Fixes
+
+* Updated how static data is passed around the app ([2f145a8](https://github.com/axelkerksiek/portfolio-web-site/commit/2f145a8691564be22195e03b3d35f7e669e4228f))
+
 ## [1.0.2](https://github.com/axelkerksiek/portfolio-web-site/compare/v1.0.1...v1.0.2) (2025-11-24)
 
 ### Bug Fixes
