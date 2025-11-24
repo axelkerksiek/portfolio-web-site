@@ -1,8 +1,7 @@
-type ProjectFeature = string
 type Project = {
   title: string
   description: string
-  notable_features: ProjectFeature[]
+  notable_features: string[]
   tech: string[]
   image: string
   github_url?: string

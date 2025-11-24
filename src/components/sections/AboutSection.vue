@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import { personal_info } from '@/data/personal_info'
+</script>
+
 <template>
   <section id="about" class="bg-bg-dark scroll-mt-10 pt-24">
     <AppContainer class="flex flex-col lg:flex-row">
@@ -14,38 +18,9 @@
       <div
         class="flex w-full flex-col justify-center gap-6 py-8 text-center lg:w-2/3 lg:py-0 lg:text-left"
       >
-        <h1 class="text-text text-4xl font-bold">Building software from design to delivery</h1>
-        <p class="text-text-muted text-lg leading-loose">
-          I'm a full-stack developer specializing in
-          <span class="font-semibold italic">Vue</span> and
-          <span class="font-semibold italic">Ruby on Rails</span>. I work with the entire product
-          lifecycle—from design and engineering through testing and deployment. Below are a few
-          personal projects that I have worked on. Feel free to explore the live sites or dive into
-          my code on GitHub.
-        </p>
-        <!-- <div
-            class="mb-1 rounded-lg bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 p-[1.5px]"
-          >
-            <div class="bg-bg flex justify-between gap-4 rounded-lg p-4">
-              <p
-                class="text-text-muted flex-1 text-left text-base leading-relaxed"
-              >
-                ✨ LLM generated fact goes here...
-              </p>
-              <button
-                class="text-text-black dark:text-text-white flex-shrink-0 cursor-pointer hover:scale-110"
-                aria-label="Generate another fact"
-                title="Generate another fact"
-              >
-                <FontAwesomeIcon :icon="['fas', 'dice']" class="text-xl" />
-              </button>
-            </div>
-          </div>
-          <p
-            class="text-text-muted mt-0.5 text-center text-xs italic md:text-right"
-          >
-            Generated with <span class="font-semibold">AWS Bedrock</span>
-          </p> -->
+        <h1 class="text-text text-4xl font-bold">{{ personal_info.heading }}</h1>
+        <!-- eslint-disable-next-line vue/no-v-html -->
+        <p class="text-text-muted text-lg leading-loose" v-html="personal_info.description"></p>
       </div>
     </AppContainer>
   </section>
