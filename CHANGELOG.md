@@ -1,3 +1,9 @@
+## [1.1.3](https://github.com/axelkerksiek/portfolio-web-site/compare/v1.1.2...v1.1.3) (2025-11-24)
+
+### Bug Fixes
+
+* Fixed build errors ([923edc5](https://github.com/axelkerksiek/portfolio-web-site/commit/923edc52a9b02042d18f7cf51a46b857f4908f38))
+
 ## [1.1.2](https://github.com/axelkerksiek/portfolio-web-site/compare/v1.1.1...v1.1.2) (2025-11-24)
 
 ### Bug Fixes
