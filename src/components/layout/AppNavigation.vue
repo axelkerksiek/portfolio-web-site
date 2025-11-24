@@ -23,7 +23,7 @@ const NAV_ITEMS = [
 ]
 
 const THEME_COLORS: Record<Theme, string> = {
-  green: 'oklch(0.696 0.17 162.48)',
+  green: 'oklch(0.696 0.17 162.48)', // make sure this is the same value as --color-primary in :root
   orange: 'oklch(0.7 0.18 45)',
   blue: 'oklch(0.6547 0.1749 248.01)',
   purple: 'oklch(0.67 0.2 290)',
@@ -38,7 +38,7 @@ const FAVICON_MAP: Record<Theme, string> = {
   red: '/images/logos/axel_logo_red_32x32_optimized.png',
 }
 
-const DESKTOP_BREAKPOINT = '(min-width: 768px)'
+const DESKTOP_BREAKPOINT = '(min-width: 768px)' // Comes from tailwind's docs: https://tailwindcss.com/docs/responsive-design
 
 // --- FUNCTIONS ---
 const toggleDarkMode = () => {
