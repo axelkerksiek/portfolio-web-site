@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/axelkerksiek/portfolio-web-site/compare/v1.0.1...v1.0.2) (2025-11-24)
+
+### Bug Fixes
+
+* Modified version style in footer and updated deploy job to use role instead of user access. ([ad3225e](https://github.com/axelkerksiek/portfolio-web-site/commit/ad3225ea6c47e8a6fc43e9c0ea7c8eb196d2c5f9))
+* Updated about me section ([ab77453](https://github.com/axelkerksiek/portfolio-web-site/commit/ab7745327bc5ddd3536318b61c3624eab718d0b5))
+
 ## [1.0.1](https://github.com/axelkerksiek/portfolio-web-site/compare/v1.0.0...v1.0.1) (2025-11-22)
 
 ### Bug Fixes
