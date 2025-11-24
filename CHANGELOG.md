@@ -1,3 +1,9 @@
+## [1.1.1](https://github.com/axelkerksiek/portfolio-web-site/compare/v1.1.0...v1.1.1) (2025-11-24)
+
+### Bug Fixes
+
+* added sitemap and fixed workflows ([f335d65](https://github.com/axelkerksiek/portfolio-web-site/commit/f335d65b09d0b6d979402af228d60fa8bf72b348))
+
 ## [1.1.0](https://github.com/axelkerksiek/portfolio-web-site/compare/v1.0.3...v1.1.0) (2025-11-24)
 
 ### Features
