@@ -69,13 +69,16 @@ const updateFavicon = (theme: string) => {
   }
 
   if (faviconElement) {
-    faviconElement.href = FAVICON_MAP[theme] || FAVICON_MAP.green
+    faviconElement.href = FAVICON_MAP[theme] ?? FAVICON_MAP.green
   }
 }
 
 const applyColorPalette = (theme: string) => {
   selectedTheme.value = theme
-  document.documentElement.style.setProperty('--color-primary', THEME_COLORS[theme])
+  document.documentElement.style.setProperty(
+    '--color-primary',
+    THEME_COLORS[theme] ?? THEME_COLORS.green
+  )
   updateFavicon(theme)
 }
 
@@ -216,7 +219,7 @@ onUnmounted(() => {
                     ? 'ring-primary ring-offset-bg-dark border-bg-dark ring-1 ring-offset-2'
                     : 'border-border',
                 ]"
-                class="h-5 w-5 cursor-pointer overflow-hidden rounded-sm border-1 hover:scale-110"
+                class="h-5 w-5 cursor-pointer overflow-hidden rounded-sm border hover:scale-110"
                 @click="selectPalette(theme)"
               ></button>
             </div>
@@ -235,12 +238,12 @@ onUnmounted(() => {
           <Switch v-slot="{ checked }" v-model="isDark" as="template">
             <button
               :title="checked ? 'Switch to light mode' : 'Switch to dark mode'"
-              class="border-text-muted hover:border-text bg-primary inline-flex h-6 w-10 cursor-pointer items-center rounded-full border-1"
+              class="border-text-muted hover:border-text bg-primary inline-flex h-6 w-10 cursor-pointer items-center rounded-full border"
             >
               <span class="sr-only">Toggle dark mode</span>
               <span
                 class="bg-bg inline-flex h-4 w-4 transform items-center justify-center rounded-full"
-                :class="checked ? 'translate-x-[1.25rem]' : 'translate-x-[0.20rem]'"
+                :class="checked ? 'translate-x-5' : 'translate-x-[0.20rem]'"
               >
                 <FontAwesomeIcon
                   :icon="checked ? ['fas', 'moon'] : ['fas', 'sun']"
@@ -269,7 +272,7 @@ onUnmounted(() => {
       <!-- Mobile Menu -->
       <div
         v-show="isMobileMenuOpen"
-        class="bg-bg-dark dark:border-border-muted fixed inset-0 top-16 z-40 overflow-y-auto border-t border-transparent shadow-[inset_0_4px_6px_-1px_rgb(0_0_0_/_0.1)] md:hidden"
+        class="bg-bg-dark dark:border-border-muted fixed inset-0 top-16 z-40 overflow-y-auto border-t border-transparent shadow-[inset_0_4px_6px_-1px_rgb(0_0_0/0.1)] md:hidden"
       >
         <!-- Navigation Links -->
         <div class="flex flex-col gap-4 px-18 py-4">
@@ -297,7 +300,7 @@ onUnmounted(() => {
                   ? 'ring-primary ring-offset-bg border-bg ring-2 ring-offset-2'
                   : 'border-text-muted',
               ]"
-              class="h-8 w-8 cursor-pointer overflow-hidden rounded-md border-1"
+              class="h-8 w-8 cursor-pointer overflow-hidden rounded-md border"
               :aria-label="`Select ${theme} theme`"
               @click="selectPalette(theme)"
             ></button>
