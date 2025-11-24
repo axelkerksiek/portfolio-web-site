@@ -14,12 +14,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: main
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version-file: '.nvmrc'
 
@@ -30,7 +30,7 @@ jobs:
           echo "version=$PNPM_VERSION" >> $GITHUB_OUTPUT
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v3
+        uses: pnpm/action-setup@v4
         with:
           version: ${{ steps.pnpm-version.outputs.version }}
 
@@ -41,7 +41,7 @@ jobs:
         run: pnpm build
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v5
         with:
           role-to-assume: arn:aws:iam::728812332301:role/github-deploy-portfolio
           aws-region: us-east-1
