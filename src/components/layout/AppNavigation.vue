@@ -3,12 +3,15 @@
 import { ref, watch, onMounted, onUnmounted } from 'vue'
 import { Switch } from '@headlessui/vue'
 
+// --- TYPES ---
+type Theme = 'green' | 'orange' | 'blue' | 'purple' | 'red'
+
 // --- VARIABLES (reactive) ---
 const isDark = ref(false)
 const isMobileMenuOpen = ref(false)
 const showPaletteMenu = ref(false)
 const navRef = ref<HTMLElement | null>(null)
-const selectedTheme = ref('green')
+const selectedTheme = ref<Theme>('green')
 
 // --- VARIABLES (non-reactive) ---
 let faviconElement: HTMLLinkElement | null = null
@@ -19,15 +22,15 @@ const NAV_ITEMS = [
   { name: 'Projects', href: '#projects' },
 ]
 
-const THEME_COLORS: Record<string, string> = {
-  green: 'oklch(0.696 0.17 162.48)', // make sure this is the same value as --color-primary in :root
+const THEME_COLORS: Record<Theme, string> = {
+  green: 'oklch(0.696 0.17 162.48)',
   orange: 'oklch(0.7 0.18 45)',
   blue: 'oklch(0.6547 0.1749 248.01)',
   purple: 'oklch(0.67 0.2 290)',
   red: 'oklch(0.66 0.19 10)',
 }
 
-const FAVICON_MAP: Record<string, string> = {
+const FAVICON_MAP: Record<Theme, string> = {
   green: '/images/logos/axel_logo_green_32x32_optimized.png',
   orange: '/images/logos/axel_logo_orange_32x32_optimized.png',
   blue: '/images/logos/axel_logo_blue_32x32_optimized.png',
@@ -35,7 +38,7 @@ const FAVICON_MAP: Record<string, string> = {
   red: '/images/logos/axel_logo_red_32x32_optimized.png',
 }
 
-const DESKTOP_BREAKPOINT = '(min-width: 768px)' // Comes from tailwind's docs: https://tailwindcss.com/docs/responsive-design
+const DESKTOP_BREAKPOINT = '(min-width: 768px)'
 
 // --- FUNCTIONS ---
 const toggleDarkMode = () => {
@@ -63,31 +66,33 @@ const applyStoredTheme = () => {
   isDark.value = isDarkMode
 }
 
-const updateFavicon = (theme: string) => {
+const isValidTheme = (theme: string | null): theme is Theme => {
+  return theme !== null && theme in THEME_COLORS
+}
+
+const updateFavicon = (theme: Theme) => {
   if (!faviconElement) {
     faviconElement = document.querySelector("link[rel='icon']")
   }
 
   if (faviconElement) {
-    faviconElement.href = FAVICON_MAP[theme] ?? FAVICON_MAP.green
+    faviconElement.href = FAVICON_MAP[theme]
   }
 }
 
-const applyColorPalette = (theme: string) => {
+const applyColorPalette = (theme: Theme) => {
   selectedTheme.value = theme
-  document.documentElement.style.setProperty(
-    '--color-primary',
-    THEME_COLORS[theme] ?? THEME_COLORS.green
-  )
+  document.documentElement.style.setProperty('--color-primary', THEME_COLORS[theme])
   updateFavicon(theme)
 }
 
 const applyStoredColorPalette = () => {
-  const storedTheme = localStorage.getItem('theme-palette') || 'green'
-  applyColorPalette(storedTheme)
+  const storedTheme = localStorage.getItem('theme-palette')
+  const theme = isValidTheme(storedTheme) ? storedTheme : 'green'
+  applyColorPalette(theme)
 }
 
-const selectPalette = (theme: string) => {
+const selectPalette = (theme: Theme) => {
   applyColorPalette(theme)
   localStorage.setItem('theme-palette', theme)
 }
@@ -211,7 +216,7 @@ onUnmounted(() => {
           <Transition name="slide-fade">
             <div v-if="showPaletteMenu" class="ml-2 flex origin-right items-center gap-2">
               <button
-                v-for="theme in Object.keys(THEME_COLORS)"
+                v-for="theme in Object.keys(THEME_COLORS) as Theme[]"
                 :key="theme"
                 :style="{ backgroundColor: THEME_COLORS[theme] }"
                 :class="[
@@ -292,7 +297,7 @@ onUnmounted(() => {
           <!-- Color Theme Squares -->
           <div class="flex items-center justify-between">
             <button
-              v-for="theme in Object.keys(THEME_COLORS)"
+              v-for="theme in Object.keys(THEME_COLORS) as Theme[]"
               :key="theme"
               :style="{ backgroundColor: THEME_COLORS[theme] }"
               :class="[
