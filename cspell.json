@@ -32,7 +32,8 @@
     "*.min.js",
     "coverage/**",
     ".git/**",
-    ".vscode/extensions.json"
+    ".vscode/extensions.json",
+    "**/sitemap.xml"
   ],
   "flagWords": [],
   "dictionaries": ["typescript", "node", "npm", "html", "css", "bash"]
