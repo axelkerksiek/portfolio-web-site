@@ -9,7 +9,7 @@ const VERSION = packageJson.version
       class="text-text-muted flex flex-col items-center justify-center gap-2 text-center text-xs font-light tracking-widest uppercase italic"
     >
       <p>Copyright © 2025 Axel Kerksiek</p>
-      <p class="lowercase">v{{ VERSION }}</p>
+      <p class="font-semibold lowercase">v{{ VERSION }}</p>
     </AppContainer>
   </footer>
 </template>
