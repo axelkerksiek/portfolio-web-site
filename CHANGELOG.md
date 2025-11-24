@@ -1,3 +1,9 @@
+## [1.1.0](https://github.com/axelkerksiek/portfolio-web-site/compare/v1.0.3...v1.1.0) (2025-11-24)
+
+### Features
+
+* Adding in google analytics ([446c8f1](https://github.com/axelkerksiek/portfolio-web-site/commit/446c8f18ee674367c625a37ac5ad211a6f983e60))
+
 ## [1.0.3](https://github.com/axelkerksiek/portfolio-web-site/compare/v1.0.2...v1.0.3) (2025-11-24)
 
 ### Bug Fixes
