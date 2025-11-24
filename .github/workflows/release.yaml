@@ -33,16 +33,8 @@ jobs:
         with:
           node-version-file: '.nvmrc'
 
-      - name: Get pnpm version from package.json
-        id: pnpm-version
-        run: |
-          PNPM_VERSION=$(node -p "require('./package.json').packageManager.match(/pnpm@([\d.]+)/)[1]")
-          echo "version=$PNPM_VERSION" >> $GITHUB_OUTPUT
-
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: ${{ steps.pnpm-version.outputs.version }}
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
