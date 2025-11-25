@@ -1,3 +1,9 @@
+## [1.1.5](https://github.com/axelkerksiek/portfolio-web-site/compare/v1.1.4...v1.1.5) (2025-11-25)
+
+### Bug Fixes
+
+* Updated site icon to improve google search results ([08c3f64](https://github.com/axelkerksiek/portfolio-web-site/commit/08c3f64d7b4ce9c12907f2b682837cc3fe6481ca))
+
 ## [1.1.4](https://github.com/axelkerksiek/portfolio-web-site/compare/v1.1.3...v1.1.4) (2025-11-24)
 
 ### Bug Fixes
