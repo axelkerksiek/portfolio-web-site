@@ -1,3 +1,9 @@
+## [1.2.0](https://github.com/axelkerksiek/portfolio-web-site/compare/v1.1.5...v1.2.0) (2026-04-03)
+
+### Features
+
+* update dark mode color palette ([#38](https://github.com/axelkerksiek/portfolio-web-site/issues/38)) ([fa8984c](https://github.com/axelkerksiek/portfolio-web-site/commit/fa8984c25a689b6cd608873b82a3b5881685b6ad))
+
 ## [1.1.5](https://github.com/axelkerksiek/portfolio-web-site/compare/v1.1.4...v1.1.5) (2025-11-25)
 
 ### Bug Fixes
