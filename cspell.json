@@ -22,7 +22,8 @@
     "PICO",
     "xmark",
     "Xmark",
-    "faXmark"
+    "faXmark",
+    "automations"
   ],
   "ignorePaths": [
     "node_modules/**",

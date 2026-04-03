@@ -71,3 +71,86 @@ A modern, responsive portfolio website built with Vue 3, TypeScript, and Tailwin
    pnpm dev
    ```
 4. **Open your browser**
+
+## 🔁 Workflow
+
+1. **Create a GitHub issue** and add it to the Project board — it starts in **Todo**
+2. **Create a branch:** `git checkout -b feat/<issue-number>-description`
+3. **Make changes** and commit using a conventional commit message
+4. **Open a pull request** into `main` — the issue is linked automatically and moves to **In Progress**
+5. **Merge the PR** — the issue closes, moves to **Done**, and the automation runs
+
+## 📋 GitHub Project Issue Tracking
+
+This project uses a GitHub Project board to track work. Issues move through the board automatically using GitHub's built-in workflow automations.
+
+### Creating and Linking an Issue
+
+1. **Create the issue** on GitHub and add it to the Project board — it starts in **Todo**
+2. **Create a branch** using the issue number in the name:
+   ```bash
+   git checkout -b feat/<issue-number>-short-description
+   ```
+3. **Do your work and push** the branch
+4. **Open a pull request** into `main`
+   - A GitHub Action (`link-issue.yaml`) automatically prepends `Closes #<issue-number>` to the PR description based on the branch name
+   - If the branch name doesn't contain an issue number, `Closes #` is added as a placeholder — fill in the number manually
+   - The `Closes #` keyword is what tells GitHub to link the PR to the issue and close it on merge
+5. **Merge the PR** — the issue closes automatically and the board moves it to **Done**
+
+### Board Automation
+
+The Project board has two automations enabled:
+
+| Event | Board action |
+|---|---|
+| Pull request linked to issue | Issue moves to **In Progress** |
+| Pull request merged | Issue moves to **Done** |
+
+## 🌿 Branch & Commit Conventions
+
+This project uses [semantic-release](https://semantic-release.gitbook.io/) with [Conventional Commits](https://www.conventionalcommits.org/) to automate versioning and releases on every push to `main`.
+
+### Branch Naming
+
+```
+<type>/<issue-number>-short-description
+```
+
+Examples:
+
+- `feat/42-update-dark-mode-colors`
+- `fix/17-nav-overflow-on-mobile`
+- `chore/55-upgrade-vite`
+
+### Commit Types & Version Bumps
+
+| Commit type | Example | Version bump |
+|---|---|---|
+| `feat!:` / `fix!:` | `feat!: redesign color system` | **major** (1.0.0 → 2.0.0) |
+| `feat:` | `feat: add dark mode toggle` | **minor** (1.0.0 → 1.1.0) |
+| `fix:` | `fix: correct nav overflow` | **patch** (1.0.0 → 1.0.1) |
+| `chore(deps):` | `chore(deps): upgrade tailwind` | **patch** (1.0.0 → 1.0.1) |
+| `chore:`, `docs:`, `test:`, `perf:`, `ci:` | — | no release |
+
+## ⚙️ Automation
+
+### On every commit (pre-commit hook via Husky)
+
+- **ESLint** — lints staged `.ts` and `.vue` files
+- **Prettier** — formats staged files
+- **CSpell** — spell-checks staged files
+
+If any check fails, the commit is rejected until the issues are resolved.
+
+### On merge to `main` (GitHub Actions)
+
+1. **CI workflow** — runs lint and type-check
+2. **Release workflow** — semantic-release analyzes commit messages and, if a release is warranted:
+   - Bumps the version in `package.json`
+   - Updates `CHANGELOG.md`
+   - Creates a GitHub release and Git tag
+3. **Deploy workflow** — triggered by the new release:
+   - Builds the app (`pnpm build`)
+   - Uploads `dist/` to S3
+   - Invalidates the CloudFront cache
