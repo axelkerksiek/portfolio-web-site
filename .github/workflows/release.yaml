@@ -17,7 +17,7 @@ jobs:
     steps:
       - name: Generate installation access token
         id: generate-token
-        uses: actions/create-github-app-token@v2
+        uses: actions/create-github-app-token@v3
         with:
           app-id: ${{ secrets.AXEL_GH_APP_ID }}
           private-key: ${{ secrets.AXEL_GH_APP_PRIVATE_KEY }}
@@ -34,7 +34,7 @@ jobs:
           node-version-file: '.nvmrc'
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v5
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
