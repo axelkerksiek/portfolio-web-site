@@ -28,17 +28,26 @@ export default defineConfig({
   // Build - Production optimizations
   build: {
     sourcemap: false,
-    rollupOptions: {
+    rolldownOptions: {
       output: {
-        manualChunks: {
-          'vue-vendor': ['vue'],
-          icons: [
-            '@fortawesome/fontawesome-svg-core',
-            '@fortawesome/free-brands-svg-icons',
-            '@fortawesome/free-solid-svg-icons',
-            '@fortawesome/vue-fontawesome',
+        codeSplitting: {
+          groups: [
+            {
+              name: 'icons',
+              test: /node_modules[\\/]@fortawesome[\\/]/,
+              priority: 3,
+            },
+            {
+              name: 'ui',
+              test: /node_modules[\\/]@headlessui[\\/]vue[\\/]|node_modules[\\/]@vueuse[\\/]core[\\/]/,
+              priority: 2,
+            },
+            {
+              name: 'vue-vendor',
+              test: /node_modules[\\/]vue[\\/]/,
+              priority: 1,
+            },
           ],
-          ui: ['@headlessui/vue', '@vueuse/core'],
         },
       },
     },
