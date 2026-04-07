@@ -7,7 +7,7 @@
     "node": ">=24.0.0",
     "pnpm": ">=10.23.0"
   },
-  "packageManager": "pnpm@10.23.0+sha512.21c4e5698002ade97e4efe8b8b4a89a8de3c85a37919f957e7a0f30f38fbc5bbdd05980ffe29179b2fb6e6e691242e098d945d1601772cad0fef5fb6411e2a4b",
+  "packageManager": "pnpm@10.33.0+sha512.10568bb4a6afb58c9eb3630da90cc9516417abebd3fabbe6739f0ae795728da1491e9db5a544c76ad8eb7570f5c4bb3d6c637b2cb41bfdcdb47fa823c8649319",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
@@ -26,7 +26,7 @@
     "@fortawesome/vue-fontawesome": "^3.1.3",
     "@headlessui/vue": "^1.7.23",
     "@vueuse/core": "^14.2.1",
-    "vue": "^3.5.29"
+    "vue": "^3.5.32"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
@@ -34,28 +34,28 @@
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/github": "^12.0.6",
     "@semantic-release/npm": "^13.1.5",
-    "@tailwindcss/vite": "^4.2.1",
-    "@types/node": "^25.3.3",
-    "@vitejs/plugin-vue": "^6.0.4",
+    "@tailwindcss/vite": "^4.2.2",
+    "@types/node": "^25.5.2",
+    "@vitejs/plugin-vue": "^6.0.5",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/eslint-config-typescript": "^14.7.0",
-    "@vue/tsconfig": "^0.9.0",
-    "conventional-changelog-conventionalcommits": "^9.2.0",
-    "cspell": "^9.7.0",
-    "eslint": "^10.0.2",
+    "@vue/tsconfig": "^0.9.1",
+    "conventional-changelog-conventionalcommits": "^9.3.1",
+    "cspell": "^10.0.0",
+    "eslint": "^10.2.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-vue": "^10.8.0",
     "globals": "^17.4.0",
     "husky": "^9.1.7",
-    "lint-staged": "^16.3.1",
+    "lint-staged": "^16.4.0",
     "prettier": "3.8.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "semantic-release": "^25.0.3",
-    "tailwindcss": "^4.2.1",
-    "typescript": "~5.9.3",
-    "typescript-eslint": "^8.56.1",
-    "vite": "^7.3.1",
-    "vue-tsc": "^3.2.5"
+    "tailwindcss": "^4.2.2",
+    "typescript": "~6.0.2",
+    "typescript-eslint": "^8.58.0",
+    "vite": "^8.0.4",
+    "vue-tsc": "^3.2.6"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,vue}": [
